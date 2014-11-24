@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -lib "secureip" -o "E:/Programmation/Projet S5/Motor_controller/pwm_generator_tb_isim_beh.exe" -prj "E:/Programmation/Projet S5/Motor_controller/pwm_generator_tb_beh.prj" "work.pwm_generator_tb" 
