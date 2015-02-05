@@ -906,6 +906,12 @@ design rules under a new name.</description>
 <element name="U$10" library="perso" package="JUMPER_CONNECTOR" value="JUMPER_CONNECTOR" x="83.185" y="39.37"/>
 <element name="U$12" library="perso" package="JUMPER_CONNECTOR" value="JUMPER_CONNECTOR" x="73.025" y="39.37"/>
 <element name="U$3" library="perso" package="JUMPER_CONNECTOR" value="JUMPER_CONNECTOR" x="16.51" y="0"/>
+<element name="SV4" library="con-lstb" package="MA06-2" value="" x="9.6266" y="-8.83073125">
+<attribute name="OC_NEWARK" value="unknown" x="9.6266" y="-8.83073125" size="1.778" layer="27" display="off"/>
+<attribute name="MPN" value="" x="9.6266" y="-8.83073125" size="1.778" layer="27" display="off"/>
+<attribute name="MF" value="" x="9.6266" y="-8.83073125" size="1.778" layer="27" display="off"/>
+<attribute name="OC_FARNELL" value="unknown" x="9.6266" y="-8.83073125" size="1.778" layer="27" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="3.3V">

@@ -13329,13 +13329,13 @@ Es handelt sich hierbei um AK500 in horizontaler Ausführung.&lt;p&gt;
 <instance part="U$3" gate="G$1" x="-88.9" y="-53.34"/>
 <instance part="U$4" gate="G$1" x="-88.9" y="-60.96"/>
 <instance part="U$5" gate="G$1" x="-88.9" y="-68.58"/>
-<instance part="U$6" gate="G$1" x="-63.5" y="73.66"/>
-<instance part="U$7" gate="G$1" x="-76.2" y="73.66"/>
+<instance part="U$6" gate="G$1" x="-88.9" y="-76.2"/>
+<instance part="U$7" gate="G$1" x="-73.66" y="-53.34"/>
 <instance part="U$8" gate="G$1" x="-73.66" y="-60.96"/>
 <instance part="U$9" gate="G$1" x="-73.66" y="-68.58"/>
-<instance part="U$10" gate="G$1" x="-73.66" y="83.82"/>
+<instance part="U$10" gate="G$1" x="-58.42" y="-53.34"/>
 <instance part="U$11" gate="G$1" x="-58.42" y="-60.96"/>
-<instance part="U$12" gate="G$1" x="-55.88" y="81.28"/>
+<instance part="U$12" gate="G$1" x="-58.42" y="-68.58"/>
 </instances>
 <busses>
 </busses>
