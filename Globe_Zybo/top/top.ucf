@@ -1,0 +1,21 @@
+# Location constraints
+
+Net "clk" LOC = Y9;
+Net "rst" LOC = P16;
+Net "out_led0" LOC = Y11;
+Net "out_led1" LOC = AA11;
+Net "out_led2" LOC = Y10;
+Net "out_led3" LOC = AA9;
+Net "out_led4" LOC = AB11;
+Net "out_led5" LOC = AB10;
+
+# IOSTANDARD Contraints
+
+Net "clk" IOSTANDARD = LVCMOS33;
+Net "rst" IOSTANDARD = LVCMOS18;
+Net "out_led0" IOSTANDARD = LVCMOS33;
+Net "out_led1" IOSTANDARD = LVCMOS33;
+Net "out_led2" IOSTANDARD = LVCMOS33;
+Net "out_led3" IOSTANDARD = LVCMOS33;
+Net "out_led4" IOSTANDARD = LVCMOS33;
+Net "out_led5" IOSTANDARD = LVCMOS33;
