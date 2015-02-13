@@ -10,13 +10,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 
-use work.globe_package.all;
-
 package image_package is
 
+  -- Synthese constantes
   constant NB_COLUMN         : integer := 100;
-  constant NB_LIGNE          : integer := 60;
-  constant NB_PIXEL_BY_STRIP : integer := 20;
+  constant NB_LIGNE          : integer := 48;
+  constant NB_PIXEL_BY_STRIP : integer := 16;
+
+   -- Simulation constantes
+  --constant NB_COLUMN         : integer := 5;
+  --constant NB_LIGNE          : integer := 60;
+  --constant NB_PIXEL_BY_STRIP : integer := 20;
 
   constant SIZE_IMAGE : integer := NB_LIGNE * NB_COLUMN;
 

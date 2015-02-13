@@ -7,7 +7,11 @@ create_clock -add -name sys_clk_pin -period 8.00 -waveform {0 4} [get_ports clk]
 set_property PACKAGE_PIN Y16 [get_ports rst]
 set_property IOSTANDARD LVCMOS33 [get_ports rst]
 
-##Output signal
+##Input signals
+##set_property PACKAGE_PIN T17 [get_ports infra_sensor]
+##set_property IOSTANDARD LVCMOS33 [get_ports infra_sensor]
+
+##Output signals
 set_property PACKAGE_PIN V12 [get_ports out_led0]
 set_property IOSTANDARD LVCMOS33 [get_ports out_led0]
 

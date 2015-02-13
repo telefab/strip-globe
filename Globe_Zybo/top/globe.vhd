@@ -24,14 +24,15 @@ entity globe is
     ADDR_RAM_WIDTH : integer := 13
     );
   port (
-    clk      : in  std_logic;
-    rst      : in  std_logic;
-    out_led0 : out std_logic;
-    out_led1 : out std_logic;
-    out_led2 : out std_logic;
-    out_led3 : out std_logic;
-    out_led4 : out std_logic;
-    out_led5 : out std_logic
+    clk          : in  std_logic;
+    rst          : in  std_logic;
+--    infra_sensor : in  std_logic;
+    out_led0     : out std_logic;
+    out_led1     : out std_logic;
+    out_led2     : out std_logic;
+    out_led3     : out std_logic;
+    out_led4     : out std_logic;
+    out_led5     : out std_logic
     );
 end globe;
 
@@ -44,12 +45,14 @@ architecture rtl of globe is
       ADDR_WIDTH : integer
       );
     port (
-      clk       : in  std_logic;
-      rst       : in  std_logic;
-      d_out_ram : in  std_logic_vector(DATA_WIDTH-1 downto 0);
-      d_in_ram  : out std_logic_vector(DATA_WIDTH-1 downto 0);
-      addr      : out std_logic_vector(ADDR_WIDTH-1 downto 0);
-      wr        : out std_logic
+      clk        : in  std_logic;
+      rst        : in  std_logic;
+      ram_enable : in  std_logic;
+      d_out_ram  : in  std_logic_vector(DATA_WIDTH-1 downto 0);
+      d_in_ram   : out std_logic_vector(DATA_WIDTH-1 downto 0);
+      addr       : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+      wr0        : out std_logic;
+      wr1        : out std_logic
       );
   end component interface;
 
@@ -82,6 +85,7 @@ architecture rtl of globe is
       infra_sensor : in  std_logic;
       d_out_ram    : in  std_logic_vector(DATA_WIDTH-1 downto 0);
       addr         : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+      ram_enable   : out std_logic;
       out_led0     : out std_logic;
       out_led1     : out std_logic;
       out_led2     : out std_logic;
@@ -92,13 +96,19 @@ architecture rtl of globe is
   end component display_controller;
 
   -- Signal declaration
-  signal d_in    : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
-  signal addr_1  : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
-  signal addr_2  : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
-  signal d_out_1 : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
-  signal d_out_2 : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
-  signal wr      : std_logic;
-
+  signal d_in         : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
+  signal addr         : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
+  signal d_out        : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
+  signal addr_frame0  : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
+  signal addr_frame1  : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
+  signal addr_2       : std_logic_vector(ADDR_RAM_WIDTH-1 downto 0);
+  signal d_out_frame0 : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
+  signal d_out_frame1 : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
+  signal d_out_2      : std_logic_vector(DATA_RAM_WIDTH-1 downto 0);
+  signal ram_enable   : std_logic;
+  signal wr0          : std_logic;
+  signal wr1          : std_logic;
+  
   signal count_infra  : integer;
   signal infra_sensor : std_logic;
 
@@ -110,28 +120,48 @@ begin
       ADDR_WIDTH => ADDR_RAM_WIDTH
       )
     port map (
-      clk       => clk,
-      rst       => rst,
-      d_out_ram => d_out_2,
-      d_in_ram  => d_in,
-      addr      => addr_2,
-      wr        => wr
+      clk        => clk,
+      rst        => rst,
+      ram_enable => ram_enable,
+      d_out_ram  => d_out_2,
+      d_in_ram   => d_in,
+      addr       => addr_2,
+      wr0        => wr0,
+      wr1        => wr1
       );
 
-  frame_buffer_inst : frame_buffer
+  frame_buffer0 : frame_buffer
     generic map (
       DATA_WIDTH => DATA_RAM_WIDTH,
       ADDR_WIDTH => ADDR_RAM_WIDTH
       )
     port map (
       clk     => clk,
-      addr_1  => addr_1,
-      d_out_1 => d_out_1,
+      addr_1  => addr_frame0,
+      d_out_1 => d_out_frame0,
       d_in    => d_in,
-      wr      => wr,
+      wr      => wr0,
       addr_2  => addr_2,
       d_out_2 => d_out_2
       );
+
+  frame_buffer1 : frame_buffer
+    generic map (
+      DATA_WIDTH => DATA_RAM_WIDTH,
+      ADDR_WIDTH => ADDR_RAM_WIDTH
+      )
+    port map (
+      clk     => clk,
+      addr_1  => addr_frame1,
+      d_out_1 => d_out_frame1,
+      d_in    => d_in,
+      wr      => wr1,
+      addr_2  => addr_2,
+      d_out_2 => d_out_2
+      );
+
+  addr  <= addr_frame0 when ram_enable = '0' else addr_frame1;
+  d_out <= d_out_frame0 when ram_enable = '0' else d_out_frame1;
 
   display_controller_inst : display_controller
     generic map (
@@ -142,8 +172,9 @@ begin
       clk          => clk,
       rst          => rst,
       infra_sensor => infra_sensor,
-      d_out_ram    => d_out_1,
-      addr         => addr_1,
+      d_out_ram    => d_out,
+      addr         => addr,
+      ram_enable   => ram_enable,
       out_led0     => out_led0,
       out_led1     => out_led1,
       out_led2     => out_led2,
@@ -151,7 +182,7 @@ begin
       out_led4     => out_led4,
       out_led5     => out_led5
       );
-
+      
   process(clk, rst)
   begin
     if rst = '1' then

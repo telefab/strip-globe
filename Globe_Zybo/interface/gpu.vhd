@@ -24,10 +24,12 @@ entity gpu is
     ADDR_WIDTH : integer
     );
   port (
-    clk       : in  std_logic;
-    rst       : in  std_logic;
-    pixel_out : out std_logic_vector(DATA_WIDTH-1 downto 0);
-    write_en  : out std_logic
+    clk        : in  std_logic;
+    rst        : in  std_logic;
+    ram_enable : in  std_logic;
+    ram_select : out std_logic;
+    pixel_out  : out std_logic_vector(DATA_WIDTH-1 downto 0);
+    write_en   : out std_logic
     );
 end gpu;
 
@@ -40,8 +42,11 @@ architecture rtl of gpu is
   constant PIXEL_W : std_logic_vector(DATA_WIDTH-1 downto 0) := "111111111111111111111111";
 
   -- Signal Declaration
-  signal count_pixel    : integer range 0 to 60;
+  signal count_pixel    : integer range 0 to 48;
   signal column_counter : integer range 0 to 100;
+  signal image_select   : std_logic;
+  signal ram_select_r   : std_logic;
+  signal switch_pixel   : std_logic;
   
 begin
 
@@ -51,66 +56,86 @@ begin
       pixel_out      <= (others => '0');
       count_pixel    <= 0;
       column_counter <= 0;
+      ram_select_r   <= '0';
     elsif rising_edge(clk) then
-      write_en <= '1';
-      if column_counter < NB_COLUMN then
-        if count_pixel < NB_PIXEL_BY_STRIP then
-          count_pixel <= count_pixel + 1;
-          if column_counter < 33 then
-            pixel_out <= PIXEL_B;
-          elsif column_counter < 66 then
-            pixel_out <= PIXEL_G;
+      if ram_enable = ram_select_r then
+        if column_counter < NB_COLUMN then
+          write_en <= '1';
+          if count_pixel < NB_LIGNE then
+            if image_select = '0' then
+              if switch_pixel = '0' then
+                pixel_out <= PIXEL_B;
+              else
+                pixel_out <= PIXEL_R;
+              end if;
+            else
+              if switch_pixel = '0' then
+                pixel_out <= PIXEL_G;
+              else
+                pixel_out <= PIXEL_W;
+              end if;
+            end if;
+            switch_pixel <= not switch_pixel;
           else
-            pixel_out <= PIXEL_R;
-          end if;
-        elsif count_pixel < 2*NB_PIXEL_BY_STRIP then
-          count_pixel <= count_pixel + 1;
-          if column_counter < 33 then
-            pixel_out <= PIXEL_G;
-          elsif column_counter < 66 then
-            pixel_out <= PIXEL_R;
-          else
-            pixel_out <= PIXEL_B;
-          end if;
-        elsif count_pixel < 3*NB_PIXEL_BY_STRIP-1 then
-          count_pixel <= count_pixel + 1;
-          if column_counter < 33 then
-            pixel_out <= PIXEL_R;
-          elsif column_counter < 66 then
-            pixel_out <= PIXEL_B;
-          else
-            pixel_out <= PIXEL_G;
+            count_pixel    <= 0;
+            column_counter <= column_counter + 1;
           end if;
         else
-          column_counter <= column_counter + 1;
-          count_pixel    <= 0;
+          write_en       <= '0';
+          column_counter <= 0;
+          image_select   <= not image_select;
+          ram_select_r   <= not ram_select_r;
         end if;
-      else
-        column_counter <= 0;
       end if;
     end if;
   end process;
 
---  process (rst, clk)
---  begin
---    if rst = '1' then
---      pixel_out      <= (others => '0');
---      count_pixel    <= 0;
---      column_counter <= 0;
---    elsif rising_edge(clk) then
---      write_en <= '1';
---      if column_counter < NB_COLUMN then
---        if count_pixel < 3*NB_PIXEL_BY_STRIP-1 then
---          count_pixel <= count_pixel + 1;
---          pixel_out <= PIXEL_W;
+  ram_select <= ram_select_r;
+  
+--process (rst, clk)
+--begin
+--  if rst = '1' then
+--    pixel_out      <= (others => '0');
+--    count_pixel    <= 0;
+--    column_counter <= 0;
+--  elsif rising_edge(clk) then
+--    write_en <= '1';
+--    if column_counter < NB_COLUMN then
+--      if count_pixel < NB_PIXEL_BY_STRIP then
+--        count_pixel <= count_pixel + 1;
+--        if column_counter < 33 then
+--          pixel_out <= PIXEL_B;
+--        elsif column_counter < 66 then
+--          pixel_out <= PIXEL_G;
 --        else
---          column_counter <= column_counter + 1;
---          count_pixel    <= 0;
+--          pixel_out <= PIXEL_R;
+--        end if;
+--      elsif count_pixel < 2*NB_PIXEL_BY_STRIP then
+--        count_pixel <= count_pixel + 1;
+--        if column_counter < 33 then
+--          pixel_out <= PIXEL_G;
+--        elsif column_counter < 66 then
+--          pixel_out <= PIXEL_R;
+--        else
+--          pixel_out <= PIXEL_B;
+--        end if;
+--      elsif count_pixel < 3*NB_PIXEL_BY_STRIP-1 then
+--        count_pixel <= count_pixel + 1;
+--        if column_counter < 33 then
+--          pixel_out <= PIXEL_R;
+--        elsif column_counter < 66 then
+--          pixel_out <= PIXEL_B;
+--        else
+--          pixel_out <= PIXEL_G;
 --        end if;
 --      else
---        column_counter <= 0;
+--        column_counter <= column_counter + 1;
+--        count_pixel    <= 0;
 --      end if;
+--    else
+--      column_counter <= 0;
 --    end if;
---  end process;
+--  end if;
+--end process;
 
 end;

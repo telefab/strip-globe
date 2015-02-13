@@ -29,6 +29,7 @@ entity display_controller is
     infra_sensor : in  std_logic;
     d_out_ram    : in  std_logic_vector(DATA_WIDTH-1 downto 0);
     addr         : out std_logic_vector(ADDR_WIDTH-1 downto 0);
+    ram_enable   : out std_logic;
     out_led0     : out std_logic;
     out_led1     : out std_logic;
     out_led2     : out std_logic;
@@ -53,10 +54,12 @@ architecture rtl of display_controller is
       rst          : in  std_logic;
       ready        : in  std_logic;
       new_image    : in  std_logic;
+      new_column   : in  std_logic;
       d_out_ram    : in  std_logic_vector(DATA_WIDTH-1 downto 0);
       addr         : out std_logic_vector(ADDR_WIDTH-1 downto 0);
       pixel_vector : out std_logic_vector(6*DATA_WIDTH-1 downto 0);
-      new_pixel    : out std_logic
+      new_pixel    : out std_logic;
+      ram_enable   : out std_logic
       );
   end component column_reader;
 
@@ -87,14 +90,15 @@ architecture rtl of display_controller is
       );
   end component send_to_stripe;
 
-  component synchronisation
-    port (
+  component speed_controller
+    port(
       clk          : in  std_logic;
       rst          : in  std_logic;
       infra_sensor : in  std_logic;
-      new_image    : out std_logic
+      rnd          : out std_logic;
+      next_column  : out std_logic
       );
-  end component synchronisation;
+  end component speed_controller;
 
   -- Signal declaration
   signal bit_out0 : std_logic;
@@ -136,7 +140,8 @@ architecture rtl of display_controller is
   signal ready_to_send4 : std_logic;
   signal ready_to_send5 : std_logic;
 
-  signal new_image : std_logic;
+  signal new_image   : std_logic;
+  signal next_column : std_logic;
   
 begin
 
@@ -153,10 +158,12 @@ begin
       rst          => rst,
       ready        => ready_to_send,
       new_image    => new_image,
+      new_column   => next_column,
       d_out_ram    => d_out_ram,
       addr         => addr,
       pixel_vector => pixel_vector,
-      new_pixel    => new_pixel
+      new_pixel    => new_pixel,
+      ram_enable   => ram_enable
       );
 
   pixel0 <= pixel_vector(DATA_WIDTH - 1 downto 0);
@@ -319,12 +326,13 @@ begin
       ready      => ready5
       );
 
-  synchro_inst : synchronisation
-    port map (
+  speed_controller_inst : speed_controller
+    port map(
       clk          => clk,
       rst          => rst,
       infra_sensor => infra_sensor,
-      new_image    => new_image
+      rnd          => new_image,
+      next_column  => next_column
       );
 
 end;

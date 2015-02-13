@@ -32,10 +32,12 @@ entity column_reader is
     rst          : in  std_logic;
     ready        : in  std_logic;
     new_image    : in  std_logic;
+    new_column   : in  std_logic;
     d_out_ram    : in  std_logic_vector(DATA_WIDTH-1 downto 0);
     addr         : out std_logic_vector(ADDR_WIDTH-1 downto 0);
     pixel_vector : out std_logic_vector(6*DATA_WIDTH-1 downto 0);
-    new_pixel    : out std_logic
+    new_pixel    : out std_logic;
+    ram_enable   : out std_logic
     );
 end column_reader;
 
@@ -51,7 +53,6 @@ architecture rtl of column_reader is
   signal count_pixel  : integer range 0 to NB_PIXEL_BY_STRIP;
   signal count_send   : integer range 0 to NB_PIXEL_BY_STRIP;
   signal read_column  : std_logic;
-  signal new_column   : std_logic;
   signal new_strip    : std_logic;
   signal strip_sent   : std_logic;
   signal send         : std_logic;
@@ -65,6 +66,7 @@ architecture rtl of column_reader is
   signal addr_r       : integer range 0 to 6000;
   signal addr_r1      : integer range 0 to 6000;
   signal addr_r2      : integer range 0 to 6000;
+  signal ram_enable_r : std_logic;
   
 begin
 
@@ -147,9 +149,10 @@ begin
   control_add_mem_proc : process(clk, rst)
   begin
     if rst = '1' then
-      addr_r  <= 0;
-      addr_r1 <= 0;
-      addr_r2 <= 0;
+      addr_r     <= 0;
+      addr_r1    <= 0;
+      addr_r2    <= 0;
+      ram_enable_r <= '0';
     elsif rising_edge(clk) then
       if new_image = '1' then
         addr_r  <= 0;
@@ -173,7 +176,8 @@ begin
             if addr_r2 < SIZE_IMAGE then
               addr_r2 <= addr_r2 + 1;
             else
-              addr_r2 <= 0;
+              addr_r2    <= 0;
+              ram_enable_r <= not ram_enable_r;
             end if;
           end if;
         end if;
@@ -181,6 +185,8 @@ begin
     end if;
   end process control_add_mem_proc;
 
+  ram_enable <= ram_enable_r;
+  addr       <= std_logic_vector(to_unsigned(addr_r, ADDR_WIDTH));
 
   read_column_proc : process(clk, rst)
   begin
@@ -244,22 +250,5 @@ begin
       end if;
     end if;
   end process send_strip;
-
-  synchronisation : process(clk, rst)
-  begin
-    if rst = '1' then
-      count_wait <= 0;
-      new_column <= '0';
-    elsif rising_edge(clk) then
-      new_column <= '0';
-      count_wait <= count_wait + 1;
-      if count_wait = WAIT_TIME_COLUMN then
-        new_column <= '1';
-        count_wait <= 0;
-      end if;
-    end if;
-  end process synchronisation;
-
-  addr <= std_logic_vector(to_unsigned(addr_r, ADDR_WIDTH));
 
 end rtl;
