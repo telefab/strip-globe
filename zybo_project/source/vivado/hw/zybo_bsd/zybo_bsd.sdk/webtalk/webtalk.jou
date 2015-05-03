@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Webtalk v2014.4 (64-bit)
+# SW Build 1071353 on Tue Nov 18 16:44:35 MST 2014
+# 
+# Start of session at: Fri Apr 10 08:15:38 2015
+# Process ID: 25774
+# Log file: /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/webtalk/webtalk.log
+# Journal file: /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/webtalk/webtalk.jou
+#-----------------------------------------------------------
+source sdk_webtalk.tcl

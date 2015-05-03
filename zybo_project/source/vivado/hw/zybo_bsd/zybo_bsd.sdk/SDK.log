@@ -1,0 +1,15 @@
+23:14:34 INFO  : Processing command line option -hwspec /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/system_wrapper.hdf.
+23:14:45 INFO  : Launching XSDB server: xsdb -s /opt/Xilinx/SDK/2014.4/scripts/xsdb/xsdb/xsdb-server.tcl 2450
+19:37:09 INFO  : Processing command line option -hwspec /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/system_wrapper.hdf.
+19:37:11 INFO  : Launching XSDB server: xsdb -s /opt/Xilinx/SDK/2014.4/scripts/xsdb/xsdb/xsdb-server.tcl 2450
+19:37:11 INFO  : Checking for hwspec changes in the project system_wrapper_hw_platform_0.
+19:37:11 INFO  : SDK has detected change in the last modified timestamps for source hardware specification file Source:1428687358000,  Project:1428614010000
+19:37:11 INFO  : The hardware specification for project 'system_wrapper_hw_platform_0' is different from /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/system_wrapper.hdf.
+19:37:11 INFO  : Copied contents of /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.sdk/system_wrapper.hdf into /system_wrapper_hw_platform_0/system.hdf.
+19:37:12 INFO  : Synchronizing projects in the workspace with the hardware platform specification changes.
+19:37:19 INFO  : 
+19:37:29 INFO  : Updating hardware inferred compiler options for zybo_globe_fsbl.
+19:37:29 INFO  : Clearing existing target manager status.
+19:37:33 INFO  : Closing and re-opening the MSS file of ther project zybo_globe_fsbl_bsp
+19:37:33 INFO  : Workspace synchronized with the new hardware specification file. Cleaning dependent projects...
+20:02:02 ERROR : Unexpected error while parsing XMD response ￿: com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: invalid number or unquoted string near 

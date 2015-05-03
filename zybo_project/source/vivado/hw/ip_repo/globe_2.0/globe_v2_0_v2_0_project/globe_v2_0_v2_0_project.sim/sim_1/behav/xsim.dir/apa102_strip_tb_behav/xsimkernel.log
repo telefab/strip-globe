@@ -1,0 +1,7 @@
+Running: xsim.dir/apa102_strip_tb_behav/xsimk -simmode gui -wdb apa102_strip_tb_behav.wdb -simrunnum 0 -socket 52167
+Design successfully loaded
+Design Loading Memory Usage: 112012 KB (Peak: 112036 KB)
+Design Loading CPU Usage: 40 ms
+Simulation completed
+Simulation Memory Usage: 193948 KB (Peak: 251280 KB)
+Simulation CPU Usage: 100 ms

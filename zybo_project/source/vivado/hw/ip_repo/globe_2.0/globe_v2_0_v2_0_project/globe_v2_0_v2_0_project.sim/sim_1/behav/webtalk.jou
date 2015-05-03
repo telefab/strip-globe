@@ -1,0 +1,10 @@
+#-----------------------------------------------------------
+# Webtalk v2014.4 (64-bit)
+# SW Build 1067303 on Wed Nov 12 17:03:13 MST 2014
+# IP Build 1068446 on Thu Nov 13 19:40:58 MST 2014
+# Start of session at: Sun May  3 22:41:55 2015
+# Process ID: 5799
+# Log file: /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/webtalk.log
+# Journal file: /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/webtalk.jou
+#-----------------------------------------------------------
+source /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/xsim.dir/apa102_strip_tb_behav/webtalk/xsim_webtalk.tcl -notrace

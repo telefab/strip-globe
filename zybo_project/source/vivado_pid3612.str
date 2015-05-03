@@ -1,0 +1,322 @@
+/*
+
+Vivado v2014.4 (64-bit)
+SW Build 1071353 on Tue Nov 18 16:47:07 MST 2014
+Process ID: 3612
+
+Current time: 	4/12/15 4:15:28 PM
+Time zone: 	Central European Time (Europe/Paris)
+
+OS: PRETTY_NAME="Debian GNU/Linux 8 (jessie)"
+Version: 3.16.0-4-amd64
+Architecture: amd64
+Available processors (cores): 4
+
+DISPLAY: :0.0
+Screen size: 1600x900
+Screen resolution (DPI): 96
+Available screens: 1
+
+Java version: 	1.8.0_05 64-bit
+Java home: 	/opt/Xilinx/Vivado/2014.4/tps/lnx64/jre
+
+User name: 	phhorrei
+User directory: /home/phhorrei/perso/fablab/zybo_globe/source
+User country: 	US
+User language: 	en
+User locale: 	en_US
+Vivado preferences path: /home/phhorrei/.Xilinx/Vivado/2014.4/vivado.ini
+Vivado layouts directory: /home/phhorrei/.Xilinx/Vivado/2014.4/layouts/application
+
+GUI allocated memory:	145 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 4,809 MB
+
+*/
+
+// TclEventType: START_GUI
+// HColorUtils.generateUniqueColorPalette (num colors: 56) elapsed time: 0.5s
+// Tcl Message: start_gui 
+// [GUI Memory]: 61 MB (+61463kb) [00:00:07]
+// [Engine Memory]: 4,808 MB (+4890388kb) [00:00:07]
+// HMemoryUtils.trashcanNow. Engine heap size: 4,814 MB. GUI used memory: 19 MB. Current time: 4/12/15 4:15:30 PM
+// [Engine Memory]: 4,814 MB (+6295kb) [00:00:12]
+// [Engine Memory]: 4,829 MB (+15728kb) [00:00:22]
+// [Engine Memory]: 4,853 MB (+25370kb) [00:00:27]
+selectList(PAResourceEtoH.GettingStartedView_RECENT_PROJECTS, "/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.xpr", 2); // s:v (JViewport:JComponent, ch:JFrame)
+// cm:N (ch:JFrame):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.xpr 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: IP_LOCK_CHANGE
+// [Engine Memory]: 4,868 MB (+15450kb) [00:00:37]
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 4,912 MB (+45948kb) [00:00:39]
+// [Engine Memory]: 4,930 MB (+18382kb) [00:00:40]
+// [Engine Memory]: 4,969 MB (+41058kb) [00:00:42]
+// [Engine Memory]: 4,973 MB (+4227kb) [00:00:44]
+// [Engine Memory]: 4,977 MB (+4194kb) [00:00:46]
+// [GUI Memory]: 63 MB (+1736kb) [00:00:46]
+// [Engine Memory]: 4,979 MB (+2097kb) [00:00:46]
+// Tcl Message: open_project /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/lib'. 
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2014.4/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 4,989 MB. GUI used memory: 33 MB. Current time: 4/12/15 4:16:06 PM
+// [Engine Memory]: 4,997 MB (+18882kb) [00:00:47]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 63 MB (+595kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 64 MB (+811kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 65 MB (+811kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 66 MB (+867kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 66 MB (+813kb) [00:00:49]
+// [GUI Memory]: 67 MB (+811kb) [00:00:49]
+// [GUI Memory]: 68 MB (+809kb) [00:00:49]
+// [GUI Memory]: 68 MB (+59kb) [00:00:49]
+// [GUI Memory]: 69 MB (+809kb) [00:00:49]
+// [GUI Memory]: 69 MB (+811kb) [00:00:49]
+// [GUI Memory]: 70 MB (+811kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 71 MB (+809kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// [GUI Memory]: 72 MB (+871kb) [00:00:49]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Project name: zybo_bsd; location: /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd; part: xc7z010clg400-1
+// Tcl Message: open_project: Time (s): cpu = 00:00:36 ; elapsed = 00:00:18 . Memory (MB): peak = 5796.277 ; gain = 143.297 ; free physical = 6391 ; free virtual = 22414 
+// Elapsed time: 18 seconds
+dismissDialog("Open Project"); // cm:N (ch:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// a:a (ch:JFrame): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // i:a (JPanel:JComponent, a:a)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v)]", 1); // u:k (I:JPanel, ch:JFrame)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2); // u:k (I:JPanel, ch:JFrame)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v)]", 3); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci)]", 9); // u:k (I:JPanel, ch:JFrame)
+// al:bE (ch:JFrame): Show IP Hierarchy: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, al:bE)
+// TclEventType: DG_GRAPH_STALE
+dismissDialog("Show IP Hierarchy"); // al:bE (ch:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci)]", 9); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci)]", 9); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd)]", 12); // u:k (I:JPanel, ch:JFrame)
+// PAPropertyPanels.initPanels (globe.vhd) elapsed time: 0.2s
+// [Engine Memory]: 4,999 MB (+2097kb) [00:01:15]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd)]", 13, true); // u:k (I:JPanel, ch:JFrame) - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd)]", 13); // u:k (I:JPanel, ch:JFrame)
+// HMemoryUtils.trashcanNow. Engine heap size: 4,999 MB. GUI used memory: 33 MB. Current time: 4/12/15 4:16:35 PM
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd)]", 16); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 18, false); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd), system (system.v), globe_0 - system_globe_0_1 (system_globe_0_1.xci), system_globe_0_1 - system_globe_0_1_arch (system_globe_0_1.vhd), U0 - globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 18, false, false, false, false, false, true); // u:k (I:JPanel, ch:JFrame) - Double Click
+// Elapsed time: 11 seconds
+selectCodeEditor("apa102_strip.vhd", 286, 204); // H:bi (JPanel:JComponent, ch:JFrame)
+// Elapsed time: 11 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "apa102_strip.vhd", 1); // TdiGroup:JideTabbedPane (CodeEditorDocumentPane:DocumentPane, ch:JFrame)
+// [GUI Memory]: 75 MB (+3445kb) [00:01:42]
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, IP Catalog]", 4, false); // w:Y (v:I, ch:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_CORE_GEN
+// cm:N (ch:JFrame):  IP Catalog : addNotify
+dismissDialog("IP Catalog"); // cm:N (ch:JFrame)
+// [GUI Memory]: 77 MB (+1540kb) [00:01:53]
+// [GUI Memory]: 82 MB (+5700kb) [00:01:53]
+// Elapsed time: 11 seconds
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "globe_v2.0 ; AXI4 ; Pre-Production ; Included ; xilinx.com:user:globe:2.0", 106, "globe_v2.0", 0, false); // P:au (JViewport:JComponent, ch:JFrame)
+selectTreeTable(PAResourceAtoD.CoreTreeTablePanel_CORE_TREE_TABLE, "globe_v2.0 ; AXI4 ; Pre-Production ; Included ; xilinx.com:user:globe:2.0", 106, "globe_v2.0", 0, false, false, false, false, true, false); // P:au (JViewport:JComponent, ch:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_EDIT_IN_IP_PACKAGER, "Edit in IP Packager"); // Z:JMenuItem (ag:JPopupMenu, ch:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_EDIT_IN_IP_PACKAGER
+// l:ac (ch:JFrame): Edit in IP Packager: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, l:ac)
+// cm:N (ch:JFrame):  Edit in IP Packager : addNotify
+// TclEventType: LOAD_FEATURE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: ipx::edit_ip_in_project -upgrade true -name globe_v2_0_v2_0_project -directory /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0/component.xml 
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 5,001 MB (+2097kb) [00:02:01]
+// [Engine Memory]: 5,022 MB (+22740kb) [00:02:02]
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2014.4/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,035 MB. GUI used memory: 41 MB. Current time: 4/12/15 4:17:21 PM
+// [Engine Memory]: 5,035 MB (+13639kb) [00:02:03]
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. 
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/lib'. 
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. 
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_CURRENT_CORE
+// Run Command: PAResourceCommand.PACommandNames_IP_PACKAGER
+// [Engine Memory]: 5,038 MB (+2899kb) [00:02:05]
+// [Engine Memory]: 5,040 MB (+2101kb) [00:02:06]
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_MESSAGE_UPDATE
+// Tcl Message: ipx::edit_ip_in_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:06 . Memory (MB): peak = 5843.887 ; gain = 45.609 ; free physical = 6321 ; free virtual = 22368 
+// [GUI Memory]: 84 MB (+2255kb) [00:02:06]
+// 'j' command handler elapsed time: 8 seconds
+dismissDialog("Edit in IP Packager"); // cm:N (ch:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sim_1 
+// TclEventType: DG_UPDATE_GRAPH
+// Elapsed time: 38 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd)]", 1); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd)]", 2, true); // u:k (I:JPanel, ch:JFrame) - Node
+// [GUI Memory]: 90 MB (+5629kb) [00:02:47]
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd)]", 2); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), pwm_0 - pwm_generator - rtl (pwm_generator.vhd)]", 4, false); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd)]", 3); // u:k (I:JPanel, ch:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd)]", 6); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 8, false); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 8, false); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 8, false); // u:k (I:JPanel, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, globe_v2_0 - arch_imp (globe_v2_0.vhd), globe_v2_0_S00_AXI_inst - globe_v2_0_S00_AXI - arch_imp (globe_v2_0_S00_AXI.vhd), globe_inst - globe - rtl (globe.vhd), display_controller_inst - display_controller - rtl (display_controller.vhd), strip0 - apa102_strip - rtl (apa102_strip.vhd)]", 8, false, false, false, false, false, true); // u:k (I:JPanel, ch:JFrame) - Double Click
+selectCodeEditor("apa102_strip.vhd", 282, 199); // bi:J (JPanel:JComponent, ch:JFrame)
+selectCodeEditor("apa102_strip.vhd", 328, 225, true, false, false, false, false); // bi:J (JPanel:JComponent, ch:JFrame) - Shift Key
+selectCodeEditor("apa102_strip.vhd", 325, 219, true, false, false, false, false); // bi:J (JPanel:JComponent, ch:JFrame) - Shift Key
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 90 MB (+136kb) [00:03:09]
+// [GUI Memory]: 91 MB (+1726kb) [00:03:09]
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// Elapsed time: 23 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Package IP - globe", 1); // TdiGroup:JideTabbedPane (CodeEditorDocumentPane:DocumentPane, ch:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Review and Package", 7); // P:v (JViewport:JComponent, ch:JFrame)
+selectButton(PAResourceQtoS.ReviewContentPanel_RE_PACKAGE_IP, "Re-Package IP"); // a:JButton (JPanel:JComponent, ch:JFrame)
+// cm:N (ch:JFrame):  Package IP : addNotify
+selectButton("PAResourceQtoS.ReviewContentPanel_FINISHED_PACKAGING_SUCCESSFULLY_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, Q:JDialog)
+// TclEventType: PACKAGER_UNLOAD_CORE
+closeView(PAResourceOtoP.PAViews_PACKAGE_IP, "Package IP - globe"); // A:aG
+// TclEventType: PROJECT_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,035 MB. GUI used memory: 44 MB. Current time: 4/12/15 4:18:52 PM
+// TclEventType: CREATE_IP_CATALOG
+// Tcl Message: ipx::update_ip_instances -delete_project true 
+// TclEventType: CREATE_IP_CATALOG
+dismissDialog("Package IP"); // cm:N (ch:JFrame)
+// TclEventType: IP_LOCK_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/lib'. 
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0'. 
+// TclEventType: CREATE_IP_CATALOG
+// TclEventType: LOAD_FEATURE
+// [GUI Memory]: 95 MB (+3943kb) [00:03:37]
+// [GUI Memory]: 95 MB (+334kb) [00:03:41]
+// [GUI Memory]: 100 MB (+5215kb) [00:03:42]
+// Elapsed time: 10 seconds
+selectTab((HResource) null, (HResource) null, "Reports", 3); // FrameContainer:JideTabbedPane (ContainerContainer:JideSplitPane, ch:JFrame)
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // FrameContainer:JideTabbedPane (ContainerContainer:JideSplitPane, ch:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v)]", 1, true); // u:k (I:JPanel, ch:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2, true); // u:k (I:JPanel, ch:JFrame) - Node
+// [GUI Memory]: 102 MB (+1184kb) [00:03:48]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_wrapper (system_wrapper.v), system_i - system (system.bd)]", 2, true, false, false, false, false, true); // u:k (I:JPanel, ch:JFrame) - Double Click - Node
+// [GUI Memory]: 103 MB (+1048kb) [00:03:48]
+// cm:N (ch:JFrame):  Open Block Design : addNotify
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: LOAD_FEATURE
+// Tcl Message: open_bd_design {/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/system.bd} 
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding component instance block -- xilinx.com:ip:axi_protocol_converter:2.1 - axi_protocol_converter_0 Adding component instance block -- xilinx.com:ip:xlconstant:1.1 - ground Adding component instance block -- xilinx.com:ip:processing_system7:5.5 - processing_system7_0 
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding component instance block -- xilinx.com:ip:proc_sys_reset:5.0 - rst_processing_system7_0_100M Adding component instance block -- xilinx.com:user:globe:2.0 - globe_0 Adding component instance block -- xilinx.com:ip:axi_gpio:2.0 - axi_btns Adding component instance block -- xilinx.com:ip:axi_gpio:2.0 - axi_sws Adding component instance block -- xilinx.com:ip:xlconcat:2.1 - xlconcat_0 Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - xbar 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_PROPERTY_CHANGE
+// Tcl Message: Adding component instance block -- xilinx.com:ip:axi_mmu:2.1 - s00_mmu Adding component instance block -- xilinx.com:ip:axi_register_slice:2.1 - m02_regslice Adding component instance block -- xilinx.com:ip:axi_register_slice:2.1 - m01_regslice Adding component instance block -- xilinx.com:ip:axi_register_slice:2.1 - m00_regslice Adding component instance block -- xilinx.com:ip:axi_crossbar:2.1 - xbar 
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: Adding component instance block -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc Successfully read diagram <system> from BD file </home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/system.bd> 
+// TclEventType: RSB_OPEN_DIAGRAM
+// [Engine Memory]: 5,056 MB (+16363kb) [00:03:54]
+// [Engine Memory]: 5,057 MB (+1048kb) [00:03:54]
+// [GUI Memory]: 105 MB (+2144kb) [00:03:54]
+// TclEventType: RSB_CONNECTION_CHANGE
+// [Engine Memory]: 5,065 MB (+8921kb) [00:03:56]
+// TclEventType: RSB_CONNECTION_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,065 MB. GUI used memory: 50 MB. Current time: 4/12/15 4:19:16 PM
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:09 . Memory (MB): peak = 5871.184 ; gain = 27.297 ; free physical = 6231 ; free virtual = 22299 
+dismissDialog("Open Block Design"); // cm:N (ch:JFrame)
+// Elapsed time: 75 seconds
+selectButton(PAResourceQtoS.SystemTab_REPORT_IP_STATUS, "Report IP Status"); // h:k (JPanel:JComponent, ch:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_REPORT_IP_STATUS
+// TclEventType: IP_SUMMARY_RESULTS
+// Tcl Message: report_ip_status -name ip_status  
+// cm:N (ch:JFrame):  Report IP Status : addNotify
+dismissDialog("Report IP Status"); // cm:N (ch:JFrame)
+// [Engine Memory]: 5,067 MB (+2097kb) [00:05:19]
+selectButton(PAResourceItoN.IPStatusSectionPanel_UPGRADE_SELECTED, "Upgrade Selected"); // a:JButton (JPanel:JComponent, ch:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_UPGRADE_IP
+// TclEventType: RSB_OPEN_DIAGRAM
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: upgrade_ip -vlnv xilinx.com:user:globe:2.0 [get_ips  system_globe_0_1] 
+// Tcl Message: Upgrading '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/system.bd' 
+// [GUI Memory]: 107 MB (+2400kb) [00:05:24]
+// TclEventType: DG_GRAPH_STALE
+// cm:N (ch:JFrame):  Upgrade IP : addNotify
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_REMOVE_OBJECT
+// TclEventType: RSB_SCRIPT_TASK
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: INFO: [IP_Flow 19-3422] Upgraded system_globe_0_1 (globe_v2.0 2.0) from revision 11 to revision 12 INFO: [IP_Flow 19-3471] Wrote upgrade log to '/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/ip/system_globe_0_1/system_globe_0_1.upgrade_log'. 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RSB_SAVE_DIAGRAM
+// TclEventType: FILESET_UPDATE_IP
+// Tcl Message: Wrote  : </home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/system.bd>  
+dismissDialog("Upgrade IP"); // cm:N (ch:JFrame)
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_UPDATE_GRAPH
+// [GUI Memory]: 108 MB (+715kb) [00:05:28]
+// TclEventType: FILE_SET_CHANGE

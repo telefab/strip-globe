@@ -1,0 +1,6 @@
+Determining compilation order of HDL files.
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/fpga_sources/packages/image_package.vhd" into library xil_defaultlib
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/fpga_sources/apa102_strip.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity apa102_strip
+INFO: [VRFC 10-163] Analyzing VHDL file "/media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/fpga_sources/sim/apa102_strip_tb.vhd" into library xil_defaultlib
+INFO: [VRFC 10-307] analyzing entity apa102_strip_tb

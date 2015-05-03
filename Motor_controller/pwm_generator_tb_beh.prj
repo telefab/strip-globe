@@ -1,3 +1,0 @@
-vhdl work "globe_package.vhd"
-vhdl work "pwm_generator.vhd"
-vhdl work "pwm_generator_tb.vhd"

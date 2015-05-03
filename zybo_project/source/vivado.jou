@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2014.4 (64-bit)
+# SW Build 1071353 on Tue Nov 18 16:47:07 MST 2014
+# IP Build 1070531 on Tue Nov 18 01:10:18 MST 2014
+# Start of session at: Sun Apr 12 16:14:59 2015
+# Process ID: 3612
+# Log file: /home/phhorrei/perso/fablab/zybo_globe/source/vivado.log
+# Journal file: /home/phhorrei/perso/fablab/zybo_globe/source/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.xpr
+ipx::edit_ip_in_project -upgrade true -name globe_v2_0_v2_0_project -directory /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project /home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/ip_repo/globe_2.0/component.xml
+update_compile_order -fileset sim_1
+ipx::update_ip_instances -delete_project true
+open_bd_design {/home/phhorrei/perso/fablab/zybo_globe/source/vivado/hw/zybo_bsd/zybo_bsd.srcs/sources_1/bd/system/system.bd}
+report_ip_status -name ip_status 
+upgrade_ip -vlnv xilinx.com:user:globe:2.0 [get_ips  system_globe_0_1]

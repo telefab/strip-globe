@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2014.4 (64-bit)
+# SW Build 1067303 on Wed Nov 12 17:03:13 MST 2014
+# IP Build 1068446 on Thu Nov 13 19:40:58 MST 2014
+# Start of session at: Sun May  3 22:40:56 2015
+# Process ID: 5735
+# Log file: /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/webtalk.log
+# Journal file: /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/webtalk.jou
+#-----------------------------------------------------------
+source /media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/xsim.dir/apa102_strip_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] '/media/sf_tristan/Documents/Developpement/FabLab/StripGlobe/zybo_project/source/vivado/hw/ip_repo/globe_2.0/globe_v2_0_v2_0_project/globe_v2_0_v2_0_project.sim/sim_1/behav/xsim.dir/apa102_strip_tb_behav/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Sun May  3 22:40:59 2015. For additional details about this file, please refer to the WebTalk help file at /opt/Xilinx/Vivado/2014.4/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Sun May  3 22:40:59 2015...

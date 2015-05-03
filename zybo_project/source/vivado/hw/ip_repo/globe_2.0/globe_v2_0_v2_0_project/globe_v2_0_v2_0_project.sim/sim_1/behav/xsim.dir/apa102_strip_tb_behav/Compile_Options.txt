@@ -1,0 +1,1 @@
+-wto "ef377d6dab5c41919a90f83efff4b4d7" --debug "typical" --relax -L "xil_defaultlib" -L "secureip" --snapshot "apa102_strip_tb_behav" "xil_defaultlib.apa102_strip_tb" -log "elaborate.log" 

@@ -1,3 +1,0 @@
-vhdl isim_temp "globe_package.vhd"
-vhdl isim_temp "pwm_generator.vhd"
-vhdl isim_temp "pwm_generator_tb.vhd"

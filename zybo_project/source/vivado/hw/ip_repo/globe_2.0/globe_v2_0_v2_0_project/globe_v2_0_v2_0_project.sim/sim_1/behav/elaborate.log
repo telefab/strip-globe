@@ -1,0 +1,16 @@
+Vivado Simulator 2014.4
+Copyright 1986-1999, 2001-2014 Xilinx, Inc. All Rights Reserved.
+Running: /opt/Xilinx/Vivado/2014.4/bin/unwrapped/lnx64.o/xelab -wto ef377d6dab5c41919a90f83efff4b4d7 --debug typical --relax -L xil_defaultlib -L secureip --snapshot apa102_strip_tb_behav xil_defaultlib.apa102_strip_tb -log elaborate.log 
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package ieee.std_logic_arith
+Compiling package xil_defaultlib.image_package
+Compiling architecture rtl of entity xil_defaultlib.apa102_strip [\apa102_strip(24)\]
+Compiling architecture rtl of entity xil_defaultlib.apa102_strip_tb
+Built simulation snapshot apa102_strip_tb_behav

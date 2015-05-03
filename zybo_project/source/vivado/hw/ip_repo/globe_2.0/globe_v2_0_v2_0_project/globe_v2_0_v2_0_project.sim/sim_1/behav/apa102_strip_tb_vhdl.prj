@@ -1,0 +1,4 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  "../../../../../../../../../../fpga_sources/packages/image_package.vhd"
+vhdl xil_defaultlib  "../../../../../../../../../../fpga_sources/apa102_strip.vhd"
+vhdl xil_defaultlib  "../../../../../../../../../../fpga_sources/sim/apa102_strip_tb.vhd"
