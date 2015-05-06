@@ -1,0 +1,8 @@
+the_ROM_image:
+{
+	[bootloader]./zynq_fsbl.elf
+	./system.bit
+	./u-boot.elf
+	[offset = 0x500000]./uImage.bin
+	[offset = 0xA00000]./devicetree.dtb
+}

@@ -1,0 +1,15 @@
+
+obj-m	:= custom_module.o
+PWD       := $(shell pwd)
+KERNELDIR=/home/orcad/UVF12B501/resources/linux-xlnx/
+
+CC=arm-xilinx-linux-gnueabi-gcc
+
+default:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
+
+clean:
+	rm -rf *.o *~ core .*.cmd *.ko *.mod.c .tmp_versions Module.symvers modules.order app
+
+app:app.c
+	$(CC) app.c -o app

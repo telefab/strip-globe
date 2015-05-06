@@ -1,0 +1,22 @@
+
+
+all:output.bin
+
+clean:
+	@echo "Cleaning old output.bin"
+	rm -f output.bin uImage.bin devicetree.dtb *~
+
+uImage.bin:
+	~/UVF12B501/resources/u-boot-xlnx/tools/mkimage -A arm -O linux -T kernel -C none -a 0x8000  -n ZynqKernel -d zImage uImage.bin
+
+devicetree.dtb:
+	~/UVF12B501/resources/linux-xlnx/scripts/dtc/dtc -O dtb -I dts -o devicetree.dtb zynq-zybo.dts
+
+
+output.bin:uImage.bin devicetree.dtb
+	@echo "Generating output.bin file"
+	bootgen -image bootimage.bif -o i output.bin -w on
+	@echo "Done"
+
+flash:output.bin
+	zynq_flash -f output.bin -offset 0 -flash_type qspi_single
