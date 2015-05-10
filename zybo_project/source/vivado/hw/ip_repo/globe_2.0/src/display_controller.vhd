@@ -71,24 +71,24 @@ architecture rtl of display_controller is
       );
   end component speed_controller;
   
-    component apa102_strip
-  generic (
-    -- Width of data for one pixel
-    PIXEL_WIDTH : integer
-  ); 
-  port (
-    clk           : in  std_logic;
-    rst           : in  std_logic;
-    -- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
-    pixel_ready   : out  std_logic;
-    pixel_in      : in std_logic_vector(PIXEL_WIDTH-1 downto 0);
-    pixel_valid   : in  std_logic;
-    -- Output to the strip
-    strip_clk     : out std_logic;
-    strip_data    : out std_logic
-  );
+	component apa102_strip
+		generic (
+			-- Width of data for one pixel
+			PIXEL_WIDTH : integer
+		); 
+		port (
+			clk           : in  std_logic;
+			rst           : in  std_logic;
+			-- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
+			pixel_ready   : out  std_logic;
+			pixel_in      : in std_logic_vector(PIXEL_WIDTH-1 downto 0);
+			pixel_valid   : in  std_logic;
+			-- Output to the strip
+			strip_clk     : out std_logic;
+			strip_data    : out std_logic
+		);
   end component;
-    constant NB_STRIP : integer := 2;
+	constant NB_STRIP : integer := 2;
 
   -- Signal declaration
   signal new_pixel    : std_logic;
@@ -134,47 +134,47 @@ begin
   -- ready_tp_send is equal to '1' when all the send_pixel are ready
   ready_to_send <= ready_to_send0 and ready_to_send1;
 
-        strip0: apa102_strip
-        generic map(
-              -- Width of data for one pixel
-              PIXEL_WIDTH => DATA_WIDTH
-            ) 
-            port map(
-              clk           => clk,
-              rst           => rst,
-              -- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
-              pixel_ready   => ready_to_send0,
-              pixel_in      => pixel0, --X"00FF00",
-              pixel_valid   => new_pixel,
-              -- Output to the strip
-              strip_clk     => strip_clk_0,
-              strip_data    => strip_data_0
-           );
+	strip0: apa102_strip
+		generic map(
+			-- Width of data for one pixel
+			PIXEL_WIDTH => DATA_WIDTH
+		) 
+		port map(
+			clk           => clk,
+			rst           => rst,
+			-- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
+			pixel_ready   => ready_to_send0,
+			pixel_in      => pixel0, --X"00FF00",
+			pixel_valid   => new_pixel,
+			-- Output to the strip
+			strip_clk     => strip_clk_0,
+			strip_data    => strip_data_0
+		);
     
-        strip1: apa102_strip  
-          generic map(
-            -- Width of data for one pixel
-            PIXEL_WIDTH => DATA_WIDTH
-          ) 
-          port map(
-            clk           => clk,
-            rst           => rst,
-            -- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
-            pixel_ready   => ready_to_send1,
-            pixel_in      => X"000000", --pixel1, --X"FF0000",
-            pixel_valid   => new_pixel,
-            -- Output to the strip
-            strip_clk     => strip_clk_1,
-            strip_data    => strip_data_1
-            );
+	strip1: apa102_strip  
+		generic map(
+			-- Width of data for one pixel
+			PIXEL_WIDTH => DATA_WIDTH
+		) 
+		port map(
+			clk           => clk,
+			rst           => rst,
+			-- A pixel is taken into account when pixel_ready and pixel_valid are 1 during one clock cycle
+			pixel_ready   => ready_to_send1,
+			pixel_in      => X"000000", --pixel1, --X"FF0000",
+			pixel_valid   => new_pixel,
+			-- Output to the strip
+			strip_clk     => strip_clk_1,
+			strip_data    => strip_data_1
+		);
 
-  speed_controller_inst : speed_controller
-    port map(
-      clk            => clk,
-      rst            => rst,
-      round_sensor   => infra_sensor,
-      next_round     => new_image,
-      next_column    => next_column
-      );
+	speed_controller_inst : speed_controller
+		port map(
+			clk            => clk,
+			rst            => rst,
+			round_sensor   => infra_sensor,
+			next_round     => new_image,
+			next_column    => next_column
+		);
 
 end;

@@ -27,16 +27,18 @@ use work.globe_package.all;
 
 
 entity pwm_generator is
-  generic(SPEED_LEN : integer := 8;  -- speed pwm on 8 bits
-           CLK_LEN  : integer := 10);
-  port(clk, raz          : in  std_logic;
-                speed_in : in  std_logic_vector((SPEED_LEN-1) downto 0); -- speed pwm command
-                pwm      : out std_logic);
+  generic(
+	SPEED_LEN : integer := 8;  -- speed pwm on 8 bits
+	CLK_LEN  : integer := 10);
+  port(
+	clk, raz : in  std_logic;
+	speed_in : in  std_logic_vector((SPEED_LEN-1) downto 0); -- speed pwm command
+	pwm      : out std_logic);
 end pwm_generator;
 
 architecture rtl of pwm_generator is
 
-  constant T_CLK : integer := 40000/(CLK_PERIOD_FPGA*(2**SPEED_LEN)); -- time step corresponding to one pwm slot
+  constant T_CLK   : integer := 40000/(CLK_PERIOD_FPGA*(2**SPEED_LEN)); -- time step corresponding to one pwm slot
 
   signal clk_count : unsigned((CLK_LEN-1) downto 0)   := (others => '0'); -- count until a time step has ben reached
   signal pwm_count : unsigned((SPEED_LEN-1) downto 0) := (others => '0'); -- count until speed_mem has been reached
