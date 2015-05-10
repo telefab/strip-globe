@@ -14,13 +14,13 @@
 #include <linux/sched.h>
 
 // Addresses and sizes of the 
-#define SPEED_BASEADDR 0x43C34B00
+#define SPEED_BASEADDR 0x43C34C90
 #define SPEED_SIZE 0xFFFF+1
-#define RND_BASEADDR 0x43C34B08
+#define RND_BASEADDR 0x43C34C98
 #define RND_SIZE 0xFFFF+1
-#define CNTRL_BASEADDR 0x43C34B04
+#define CNTRL_BASEADDR 0x43C34C94
 #define CNTRL_SIZE 0xFFFF+1
-#define CHAR_BASEADDR 0x43C34B0C
+#define CHAR_BASEADDR 0x43C34C9C
 
 
 static int speed_major = 0;
