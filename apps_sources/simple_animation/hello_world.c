@@ -6,8 +6,8 @@
 #include "unistd.h"
 #include <fcntl.h>
 #include <sys/mman.h>
-#include "mask.h"
-#include "color.h"
+#include "../mask.h"
+#include "../color.h"
 
 
 /*
@@ -117,12 +117,9 @@ int main(int args, char *argv[])
 	
 	// Sending the value to the drivers
     write(fc, &cntrl, 1);
-	
-	// Waiting until the globe has reached the given speed
-	for(tt = 0; tt < 100000000;tt++);
 
-	// Loop until the image has been shifted 300 times
-	while(k < 300)
+	// Loop forever
+	while(1)
 	{
 		// Pause during the step time
 		for(tt = 0; tt < 10000000;tt++);
@@ -137,15 +134,11 @@ int main(int args, char *argv[])
 			}
 		}
 		
+		
 		// Switch the read frame buffer and the written frame buffer
-		if(k % 2 == 1)
-		{
-			cntrl[0] = WR1 | PS_CONTROL;
-		}
-		else
-		{
-			cntrl[0] = WR0 | PS_CONTROL | RAM_ENABLE;
-		}
+		cntrl[0] = 1;
+		write(fc, &cntrl, 1);
+		cntrl[0] = 0;
 		write(fc, &cntrl, 1);
 		
 		k++;

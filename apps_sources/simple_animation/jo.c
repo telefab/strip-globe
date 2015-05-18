@@ -6,8 +6,9 @@
 #include "unistd.h"
 #include <fcntl.h>
 #include <sys/mman.h>
-#include "mask.h"
-#include "color.h"
+#include <sys/time.h>
+#include "../mask.h"
+#include "../color.h"
 
 
 // Image displayed by the demonstrator
@@ -25,26 +26,26 @@ unsigned int image[49][100] = {
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,B,B,B,B,W,W,W,W,W,W,W,W,W,W,W,W,0,0,0,0,W,W,W,W,W,W,W,W,W,W,W,W,W,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,B,B,B,B,B,B,B,B,W,W,W,W,W,W,W,W,0,0,0,0,0,0,0,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,B,B,B,W,W,W,W,B,B,B,W,W,W,W,W,W,0,0,0,W,W,W,W,0,0,0,W,W,W,W,W,W,R,R,R,W,W,W,W,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,W,W,0,0,W,W,W,W,W,W,W,W,W,W,0,0,W,W,R,R,W,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,Y,Y,Y,0,W,W,W,W,W,W,W,W,W,W,0,0,G,G,G,R,W,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,Y,B,B,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,0,0,G,G,G,G,G,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,Y,Y,B,B,W,W,0,Y,Y,Y,W,W,W,W,W,W,G,G,0,0,W,W,R,G,G,G,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,B,B,B,W,W,W,Y,Y,B,B,W,W,W,W,W,W,0,0,Y,Y,W,W,G,G,0,0,W,W,W,W,W,W,R,R,R,G,W,W,W,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,B,B,B,B,B,Y,Y,B,W,W,W,W,W,W,W,W,0,0,0,W,W,G,G,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,B,B,B,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,0,0,0,G,G,W,W,W,W,W,W,W,W,W,W,G,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,G,G,W,W,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,W,W,W,W,Y,Y,Y,W,W,W,W,W,W,G,G,G,W,W,W,W,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,G,G,G,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,W,W,W,W,W,W,W,W,W,W,W,W,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,B,B,B,B,W,W,W,W,W,W,W,W,W,W,W,W,0,0,0,0,W,W,W,W,W,W,W,W,W,W,W,W,W,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,B,B,B,B,W,W,W,W,W,W,W,W,W,W,W,W,0,0,0,0,W,W,W,W,W,W,W,W,W,W,W,W,W,R,R,R,R,W,W,W,W},
+	{W,W,W,W,W,W,W,B,B,B,B,B,B,B,B,W,W,W,W,W,W,W,W,0,0,0,0,0,0,0,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W,W,W,W,W,W,W,W,B,B,B,B,B,B,B,B,W,W,W,W,W,W,W,W,0,0,0,0,0,0,0,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W},
+	{W,W,W,W,W,W,B,B,B,W,W,W,W,B,B,B,W,W,W,W,W,W,0,0,0,W,W,W,W,0,0,0,W,W,W,W,W,W,R,R,R,W,W,W,W,R,R,R,W,W,W,W,W,W,W,W,B,B,B,W,W,W,W,B,B,B,W,W,W,W,W,W,0,0,0,W,W,W,W,0,0,0,W,W,W,W,W,W,R,R,R,W,W,W,W,R,R,R,W,W},
+	{W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W},
+	{W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W,W,W,W,W,W,B,B,W,W,W,W,W,W,W,W,B,B,W,W,W,W,0,0,W,W,W,W,W,W,W,W,0,0,W,W,W,W,R,R,W,W,W,W,W,W,W,W,R,R,W},
+	{W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,W,W,0,0,W,W,W,W,W,W,W,W,W,W,0,0,W,W,R,R,W,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,W,W,0,0,W,W,W,W,W,W,W,W,W,W,0,0,W,W,R,R,W,W,W,W,W,W,W,W,W,W,R,R},
+	{W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,Y,Y,Y,0,W,W,W,W,W,W,W,W,W,W,0,0,G,G,G,R,W,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,W,B,B,Y,Y,Y,0,W,W,W,W,W,W,W,W,W,W,0,0,G,G,G,R,W,W,W,W,W,W,W,W,W,W,R,R},
+	{W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,Y,B,B,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,0,0,G,G,G,G,G,W,W,W,W,W,W,W,W,W,R,R,W,W,W,W,B,B,W,W,W,W,W,W,W,W,W,Y,B,B,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,0,0,G,G,G,G,G,W,W,W,W,W,W,W,W,W,R,R},
+	{W,W,W,W,B,B,W,W,W,W,W,W,W,W,Y,Y,B,B,W,W,0,Y,Y,Y,W,W,W,W,W,W,G,G,0,0,W,W,R,G,G,G,W,W,W,W,W,W,W,W,R,R,W,W,W,W,B,B,W,W,W,W,W,W,W,W,Y,Y,B,B,W,W,0,Y,Y,Y,W,W,W,W,W,W,G,G,0,0,W,W,R,G,G,G,W,W,W,W,W,W,W,W,R,R},
+	{W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W,W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W},
+	{W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W,W,W,W,W,W,B,B,W,W,W,W,W,W,Y,Y,B,B,W,W,W,W,0,0,Y,Y,W,W,W,W,G,G,0,0,W,W,W,W,R,R,G,G,W,W,W,W,W,W,R,R,W},
+	{W,W,W,W,W,W,B,B,B,W,W,W,Y,Y,B,B,W,W,W,W,W,W,0,0,Y,Y,W,W,G,G,0,0,W,W,W,W,W,W,R,R,R,G,W,W,W,R,R,R,W,W,W,W,W,W,W,W,B,B,B,W,W,W,Y,Y,B,B,W,W,W,W,W,W,0,0,Y,Y,W,W,G,G,0,0,W,W,W,W,W,W,R,R,R,G,W,W,W,R,R,R,W,W},
+	{W,W,W,W,W,W,W,B,B,B,B,B,Y,Y,B,W,W,W,W,W,W,W,W,0,0,0,W,W,G,G,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W,W,W,W,W,W,W,W,B,B,B,B,B,Y,Y,B,W,W,W,W,W,W,W,W,0,0,0,W,W,G,G,0,W,W,W,W,W,W,W,W,R,R,R,R,R,R,R,R,W,W,W},
+	{W,W,W,W,W,W,W,W,W,B,B,B,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,0,0,0,G,G,W,W,W,W,W,W,W,W,W,W,G,R,R,R,R,W,W,W,W,W,W,W,W,W,W,W,W,W,W,B,B,B,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,0,0,0,G,G,W,W,W,W,W,W,W,W,W,W,G,R,R,R,R,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,G,G,W,W,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,G,G,W,W,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,W,W,W,W,Y,Y,W,W,W,W,G,G,W,W,W,W,W,W,W,W,G,G,W,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,W,W,W,W,Y,Y,Y,W,W,W,W,W,W,G,G,G,W,W,W,W,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,W,W,W,W,Y,Y,Y,W,W,W,W,W,W,G,G,G,W,W,W,W,G,G,G,W,W,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,G,G,G,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,Y,Y,Y,Y,W,W,W,W,W,W,W,W,G,G,G,G,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W},
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,W,W,W,W,W,W,W,W,W,W,W,W,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,Y,Y,Y,Y,W,W,W,W,W,W,W,W,W,W,W,W,G,G,G,G,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
@@ -60,14 +61,14 @@ unsigned int image[49][100] = {
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
 	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W},
-{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W} };
+	{W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W,W} };
 
 
 /*
 This demonstrator displays the image on the globe and makes it rotate slowly
 */
 
-int main(int args, char *argv[])
+int main(int argc, char *argv[])
 {
 	// Variables used
     int fd, fc, fs;
@@ -78,7 +79,11 @@ int main(int args, char *argv[])
 	char speed[1];
 	
 	// 35 is a good speed for the globe
-	speed[0] = 35;
+	if (argc == 1) {
+		speed[0] = 35;
+	} else {
+		speed[0] = atoi(argv[1]);
+	}
 	
 	// Opening and sending speed to the driver
 	fs = open("/dev/speed",O_RDWR);
@@ -111,12 +116,9 @@ int main(int args, char *argv[])
 	
 	// Sending the value to the drivers
     write(fc, &cntrl, 1);
-	
-	// Waiting until the globe has reached the given speed
-	for(tt = 0; tt < 100000000;tt++);
 
 	// Loop until the image has been shifted 300 times
-	while(k < 300)
+	while(1)
 	{
 		// Pause during the step time
 		for(tt = 0; tt < 10000000;tt++);
@@ -132,14 +134,9 @@ int main(int args, char *argv[])
 		}
 		
 		// Switch the read frame buffer and the written frame buffer
-		if(k % 2 == 1)
-		{
-			cntrl[0] = WR1 | PS_CONTROL;
-		}
-		else
-		{
-			cntrl[0] = WR0 | PS_CONTROL | RAM_ENABLE;
-		}
+		cntrl[0] = 1;
+		write(fc, &cntrl, 1);
+		cntrl[0] = 0;
 		write(fc, &cntrl, 1);
 		
 		k++;
