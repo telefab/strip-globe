@@ -1,0 +1,70 @@
+// TODO: trouver un moyen de corriger définitivement les problèmes de permissions dans le dossier /var/www (devrait appartenir en entier à www-data) -> cause des 403 forbidden
+// TODO 2: générer une clef rsa pour le serveur ssh. (http://www.softec.lu/site/DevelopersCorner/HowToRegenerateNewSsh ?)
+
+1. Suivre l'instructable jusqu'à l'étape l'étape du buildroot:
+  http://www.instructables.com/id/Globe-of-persistence-of-vision/step3/Installing-Linux-on-the-globe/
+
+2. Installer lighttpd :
+    make menuconfig
+        target Package
+                |
+                ----> Networking Applications
+                                |
+                                -----> lighttpd
+    sauvgarder/quitter
+    
+    make
+
+3. Cross-compilation de node.js
+    git clone 
+    /!\ python doit être un lien vers python2
+        Pour ceux dont ce n'est pas le cas -> ln -s /path/to/python2 python
+                                              ln -s /path/to/python2-config python-config
+                                              export PATH=`pwd`:$PATH
+    export XILINX_TGT=arm-xilinx-linux-gnueabi
+    export AR=$XILINX_TGT-ar
+    export CC=$XILINX_TGT-gcc
+    export CXX=$XILINX_TGT-g++
+    export LINK=$XILINX_TGT-g++
+    export PATH=$PATH:/path/to/xilinxToolchain/bin
+
+    ./configure --without-snapshot --dest-cpu=arm --dest-os=linux
+
+    make -j`nproc`
+    make install DESTDIR=/dir/to/buildroot/output/target
+    
+    Copier libstdc+.so.6 du cross compilo dans /dir/to/buildroot/output/target/lib
+    Personnelement j'ai trouvé libstdc++.so.6 dans
+         /path/to/xilinxToolchain/libc/usr/lib/libstdc++.so.6
+
+4. Compilation des modules node.js 
+    avec les mêmes export que si dessus
+            
+    dans un répertoire choisi:
+    pour chaque module :
+        npm install nomDuModule --prefix=./ --target=arm
+
+    mv node_modules /dir/to/buildroot/output/target/root
+
+
+5. Finalistation
+    dans le répertoire de buildroot :
+    copier le contenu du dossier client dans le répertoire output/target/var/www
+    copier le contenu du dossier server dans le répertoire output/target/root/sphereWeb-server
+    make
+    puis copier le output/images/rootfs.cpio.uboot sur la partition 1 de la microSD du globe et le renomer en uramdisk.image.gz
+
+    Dans la partition 2 de la microSD:
+        modifier le fichier load.sh pour démarrer le serveur nodejs et le logiciel du globe
+        ajouter :
+
+# Fix permissions on /var/www
+chown www-data:www-data -R /var/www
+
+## Start servers
+
+cd /mnt
+nohup /usr/local/bin/node /root/sphereWeb-server/server.js &
+./drawing
+
+    démonter la carte SD, rebooter le globe, tout devrait fonctionner
