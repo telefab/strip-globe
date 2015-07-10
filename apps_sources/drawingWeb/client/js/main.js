@@ -71,19 +71,16 @@ function wsConnect(){
 
     socket.on('reconnecting',function(){
         // notify the user that he is currently deconnected
-        $("#status").html("Reconnection<span id='ellipsisSpan'></span>");
+        $("#status").html(langs[lang].reconnecting + "<span id='ellipsisSpan'></span>");
         startEllipsis();
     });
     socket.on('reconnect',function(){
         stopEllipsis();
-        $("#status").html("Reconnected !")
     })
     socket.on('connect', function() {
-        console.log('connected');
-
         $("#server").hide();
         $('#waitForConnection').show();
-        $("#status").html("Connected !");
+        $("#status").html(langs[lang].connected);
         socket.emit("fetch img");
     });
 
