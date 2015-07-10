@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <script src='inc/js/jquery-2.1.4.min.js'></script>
+        <script src="inc/js/socket.io.min.js"></script>
+        <script src="inc/js/colpick.js"></script>
+        <script src="inc/js/FileSaver.js"></script>
+        <script src="inc/js/caman.full.min.js"></script>
+        <link rel="stylesheet" href="inc/css/colpick.css" type="text/css"/>
+        <link rel="stylesheet" href="css/main.css" type="text/css"/>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="server">
+        <input type="text" value="127.0.0.1" id="ip"></input>
+        <input type="text" value="2345" id="port"></input>
+        <button id="connect" onclick="wsConnect();">Clique pour te connecter</button>
+        </div>
+        <div id = "waitForConnection">
+        <canvas id="can" width="100" height="49" style="border:1px solid #000"></canvas>
+        <label>#<input type="text" value="ffffff" id="picker"></input></label>
+        <label><span id="lBrushSize">Taille du pinceau</span>
+            <input id="brushSize" type="range" min="1" step"1" max="49" value="1" />
+        <button id="clearWhiteboard" onclick="clearWhiteboard();">Nettoyer la zone de dessin</button><br/>
+
+        <input type="file" id="files" name="files[]"/><br/>
+        <label id="lRotationSpeed"><span>Vitesse de rotation</span><input type="range" id="rotationSpeed" max="35" min="0" step="1" onchange="setRotationSpeed()"/></label><br/>
+        <label> <span id="lRotateImg">Temps entre deux rotation de l'image</span>
+            <input id="rotateImg" type="range" min="0" step"1" max="50" value='0' onchange="setRotateImg()"/>
+        </label><br/>
+        <button id="saveSphereFile" type="button" onclick="socket.emit('get raw file')">clique pour sauvegarder le dessin</button> 
+         <br/>
+         <label><span id="lImgProcessing">Activer/Désactiver le traitement de l'image. Le rendu est meilleur sur le globe si activé mais BEAUCOUP plus long</span>
+            <input id="imgProcessing" type="checkbox" checked/>
+        </label>
+        </div>
+        <br/>
+        <div id="langChoose">
+            <button id="fr" type="button" onclick="internationalize('fr')">Français</button> 
+            <button id="en" type="button" onclick="internationalize('en')">English</button> 
+        </div>
+        <p id="status"></p>
+        <script src="js/main.js"></script>
+        <script src="js/loadFile.js"></script>
+        <script src="js/whiteboard.js"></script>
+        <script src="js/internationalization.js"></script>
+    </body>
+</html>
