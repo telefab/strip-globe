@@ -18,5 +18,25 @@
     position:fixed;
     z-index:100;
     right:5%;
-    top:2%;
+    bottom:2%;
+}
+
+#can{
+    float:left;
+}
+
+#opts{
+    border: 1px solid black;
+    float:right;
+    word-break: break-all;
+    text-align:right;
+}
+
+#langChoose{
+    position:absolute;
+    bottom:2%;
+}
+
+td {
+    text-align:center;
 }

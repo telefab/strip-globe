@@ -11,7 +11,7 @@ can.width = 99 * k;
 
 // A mouse button have to be down and the mouse have to move to draw something
 
-can.addEventListener("mousemove",function(e){
+can.onmousemove = function(e){
 
     if(!mouseButtonDown)
         return;
@@ -21,14 +21,14 @@ can.addEventListener("mousemove",function(e){
     var rgb = [color["r"],color["g"],color["b"]]; 
 
     // Allign the mouse position to the grid and transform the position to the real position (on the 49*100 matrix)
-    var y = Math.round(e.offsetY / k),
-        x = Math.round(e.offsetX / k);
+    var y = Math.round(e.offsetY / k - parseInt($("#brushSize").val())/2),
+        x = Math.round(e.offsetX / k - parseInt($("#brushSize").val())/2);
 
     // Update the draw on all clients
     pixel = [[x,y],rgb,$("#brushSize").val()];
 
-    for(var i=x;i < Math.min(99,x + parseInt($("#brushSize").val())); i++){
-        for(var j=y;j < Math.min(48,y + parseInt($("#brushSize").val())); j++){
+    for(var i=x;i < Math.max(0, Math.min(99,x + parseInt($("#brushSize").val()))); i++){    //0 < x + brushSize < 100
+        for(var j=y;j < Math.max(0, Math.min(48,y + parseInt($("#brushSize").val()))); j++){//0 < y + brushSize < 49
             drawPixel(i,j,rgb);
             grid[i][j] = rgb;
 
@@ -36,15 +36,15 @@ can.addEventListener("mousemove",function(e){
         }
     }
 
-});
+}
 
-can.addEventListener("mousedown",function(e){
+can.onmousedown = function(e){
     mouseButtonDown = true;
-});
+}
 
-can.addEventListener("mouseup",function(e){
+can.onmouseup = function(e){
     mouseButtonDown = false;
-});
+}
 
 
 function clearWhiteboard(){
