@@ -1,5 +1,5 @@
 // This factor is used for the drawing to an other size than 49*100
-var k = 8;
+var k = 10;
 
 // The canvas where we draw
 var can = document.getElementById("can");
@@ -11,18 +11,15 @@ can.width = 99 * k;
 
 // A mouse button have to be down and the mouse have to move to draw something
 
-can.onmousemove = function(e){
-
-    if(!mouseButtonDown)
-        return;
+function paintPoint(pointX, pointY) {
 
     // transform the dictionary of color 
     //    {r:"RED COLOR",g:"GREEN COLOR",b: "BLUE COLOR"} to an [r,g,b] array
     var rgb = [color["r"],color["g"],color["b"]]; 
 
     // Allign the mouse position to the grid and transform the position to the real position (on the 49*100 matrix)
-    var y = Math.round(e.offsetY / k - parseInt($("#brushSize").val())/2),
-        x = Math.round(e.offsetX / k - parseInt($("#brushSize").val())/2);
+    var y = Math.round(pointY / k - parseInt($("#brushSize").val())/2),
+        x = Math.round(pointX / k - parseInt($("#brushSize").val())/2);
 
     // Update the draw on all clients
     pixel = [[x,y],rgb,$("#brushSize").val()];
@@ -38,14 +35,37 @@ can.onmousemove = function(e){
 
 }
 
-can.onmousedown = function(e){
+can.onmousemove = function(e){
+    if (!mouseButtonDown)
+        return;
+    paintPoint(e.offsetX, e.offsetY);
+}
+
+can.onclick = function(e){
+    paintPoint(e.offsetX, e.offsetY);
+}
+
+can.ontouchmove = function(e) {
+    for (var i = 0; i < e.changedTouches.length; i++) {
+        var touch = e.changedTouches[i];
+        paintPoint(touch.clientX - can.offsetParent.offsetLeft, touch.clientY - can.offsetParent.offsetTop);
+    }
+}
+
+can.ontouchstart = function(e) {
+    for (var i = 0; i < e.changedTouches.length; i++) {
+        var touch = e.changedTouches[i];
+        paintPoint(touch.clientX - can.offsetParent.offsetLeft, touch.clientY - can.offsetParent.offsetTop);
+    }
+}
+
+document.body.onmousedown = function() { 
     mouseButtonDown = true;
 }
 
-can.onmouseup = function(e){
+document.body.onmouseup = function() {
     mouseButtonDown = false;
 }
-
 
 function clearWhiteboard(){
     socket.emit('clear img');

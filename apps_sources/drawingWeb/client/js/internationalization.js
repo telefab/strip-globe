@@ -3,26 +3,30 @@ var langs = {
     en : {
         connect:"Click to connect",
         brushSize: "Brush size",
-        rotationSpeed: "Rotation speed",
-        rotImg: "Time between two image rotations",
-        clearWhiteboard: "Clear the whiteboard",
-        saveDrawing: "Click to save the drawing",
-        imgProcessing: "Activate/Disable the image processing.",
+        rotationSpeed: "Globe rotation",
+        rotImg: "Image rotation",
+        clearWhiteboard: "Clear",
+        saveDrawing: "Save",
+        imgProcessing: "Process the image",
         connected: "Connected",
         disconnected: "Disconnected",
-        reconnecting: "Reconnection"
+        reconnecting: "Reconnection",
+        imgLoad: "Load",
+        color: "Color"
     },
     fr : {
         connect:"Clique pour te connecter",
         brushSize: "Taille du pinceau",
-        rotationSpeed: "Vitesse de rotattion",
-        rotImg: "Temps entre deux rotaion de l'image",
-        clearWhiteboard: "Nettoyer la zone de dessin",
-        saveDrawing: "Clique pour sauvegarder le dessin",
-        imgProcessing: "Activer/Désactiver le traitement de l'image.",
+        rotationSpeed: "Rotation du globe",
+        rotImg: "Rotation de l'image",
+        clearWhiteboard: "Nettoyer",
+        saveDrawing: "Sauvegarder",
+        imgProcessing: "Traiter l'image",
         connected: "Connecté",
         disconnected: "Déconnecté",
-        reconnecting: "Reconnection"
+        reconnecting: "Reconnection",
+        imgLoad: "Charger le dessin",
+        color: "Couleur"
     }
 };
 
@@ -33,7 +37,9 @@ var id2Lang = {
     saveSphereFile:"saveDrawing",
     lRotateImg:"rotImg",
     lRotationSpeed:"rotationSpeed",
-    lImgProcessing:"imgProcessing"
+    lImgProcessing:"imgProcessing",
+    lImgLoad:"imgLoad",
+    lColor:"color"
 }
 
 function internationalize(aLang){

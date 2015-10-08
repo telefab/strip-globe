@@ -11,64 +11,69 @@
         <meta charset="UTF-8">
     </head>
     <body>
-        <div id="server">
-            <input type="text" value="127.0.0.1" id="ip"></input>
-            <input type="text" value="2345" id="port"></input>
-            <button id="connect" onclick="wsConnect();">Clique pour te connecter</button>
-        </div>
         <div id = "waitForConnection">
             <canvas id="can" width="100" height="49" style="border:1px solid #000"></canvas>
             <table id="opts">
                 <tr>
+                    <td id="lColor">Couleur</td>
+                    <td class="colors">
+                        <span class="color" data-color="ffffff">&nbsp;</span>
+                        <span class="color" data-color="000000">&nbsp;</span>
+                        <span class="color" data-color="ff0000">&nbsp;</span>
+                        <span class="color" data-color="00ff00">&nbsp;</span>
+                        <span class="color" data-color="0000ff">&nbsp;</span>
+                        <span class="color" data-color="ee81fc">&nbsp;</span>
+                    </td>
+                </tr>
+                <tr>
                     <td></td>
                     <td>
-                        #
                         <input type="text" value="ffffff" id="picker"/>
                     </td>
                 </tr>
                 <tr>
                     <td id="lBrushSize">Taille du pinceau</td>
                     <td>
-                        <input id="brushSize" type="range" min="1" step"1" max="49" value="1" />
+                        <input id="brushSize" type="range" min="1" step"1" max="5" value="1" />
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <button id="clearWhiteboard" onclick="clearWhiteboard();">Nettoyer la zone de dessin</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="file" id="files" name="files[]"/>
+                        <button id="clearWhiteboard" onclick="clearWhiteboard();">Nettoyer</button>
                     </td>
                 </tr>
 
                 <tr><td colspan="2" style="height:2px; background-color:#000000;"></td></tr>
                 <tr>
-                    <td id="lRotationSpeed">Vitesse de rotation</td>
+                    <td id="lRotationSpeed">Rotation du globe</td>
                     <td>
                         <input type="range" id="rotationSpeed" max="35" min="0" step="1" onchange="setRotationSpeed()"/>
                     </td>
                 </tr>
                 <tr>
-                    <td id="lRotateImg">Temps entre deux rotation de l'image</td>
+                    <td id="lRotateImg">Rotation de l'image</td>
                     <td>
-                        <input id="rotateImg" type="range" min="0" step"1" max="50" value='0' onchange="setRotateImg()"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button id="saveSphereFile" type="button" onclick="socket.emit('get raw file')">clique pour sauvegarder le dessin</button> 
+                        <input id="rotateImg" type="range" min="0" step"1" max="50" value='50' onchange="setRotateImg()"/>
                     </td>
                 </tr>
                 <tr><td colspan="2" style="height:2px; background-color:#000000;"></td></tr>
                 <tr>
-                    <td id="lImgProcessing">Activer/Désactiver le traitement de l'image.</td>
+                    <td></td>
                     <td>
-                        <input id="imgProcessing" type="checkbox" checked/>
+                        <button id="saveSphereFile" type="button" onclick="socket.emit('get raw file')">Sauvegarder</button> 
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lImgLoad">Charger</td>
+                    <td>
+                        <input type="file" id="files" name="files[]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lImgProcessing">Traiter l'image</td>
+                    <td>
+                        <input id="imgProcessing" type="checkbox" />
                     </td>
                 </tr>
             </table>

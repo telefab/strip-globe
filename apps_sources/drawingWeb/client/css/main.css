@@ -40,3 +40,14 @@
 td {
     text-align:center;
 }
+
+.colors {
+    position: relative;
+}
+
+.color {
+    display: inline-block;
+    border: 1px solid black;
+    width: 10%;
+    cursor: pointer;
+}

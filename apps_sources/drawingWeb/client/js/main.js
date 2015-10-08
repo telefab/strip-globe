@@ -5,6 +5,27 @@
 // the color used to draw
 var color = {r: 255, g: 255, b: 255};
 
+// init the color picker using the library colorPicker
+var colorSetByText = false;
+$('#picker').colpick({
+    layout:'rgb',
+    color:"ffffff",
+    submit:1,
+    onChange:function(hsb,hex,rgb,el,bySetColor){
+        $(el).css('border-color','#' + hex);
+
+        // Fill the text box just if the color was not set using the text field
+        if (!colorSetByText)
+            $(el).val(hex);
+        colorSetByText = false;
+
+        color = rgb;
+    }
+}).keyup(function(){
+    colorSetByText = true;
+    $(this).colpickSetColor(this.value);
+});
+
 // Contain the img file in a 100*49 array of color(3 bytes)
 var grid;
 
@@ -21,24 +42,6 @@ function initGrid(){
 
 initGrid();
 $('#waitForConnection').hide();
-
-// init the color picker using the library colorPicker
-$('#picker').colpick({
-    layout:'rgb',
-    color:"ffffff",
-    submit:1,
-    onChange:function(hsb,hex,rgb,el,bySetColor){
-        $(el).css('border-color','#' + hex);
-
-        // Fill the text box just if the color was set using the picker, and not the colpickSetColor function.
-        if(!bySetColor) $(el).val(hex);
-
-        color = rgb;
-    }
-}).keyup(function(){
-    $(this).colpickSetColor(this.value);
-});
-
 
 var socket;
 
@@ -67,7 +70,7 @@ function stopEllipsis() {
 // Management of websocket event + connection
 function wsConnect(){
 
-    socket = io("http://" + $("#ip").val() + ":" + $("#port").val());   
+    socket = io("http://" + window.location.hostname + ":2345");   
 
     socket.on('reconnecting',function(){
         // notify the user that he is currently deconnected
@@ -158,7 +161,7 @@ function setRotateImg(){
         //thks Stack Overflow
         // the slide will be between 0 and 49 (50 -> 0)
         var minp = 0;   // actual min
-        var maxp = 49;  // actual max
+        var maxp = 50;  // actual max
 
         var minv = Math.log(1);   //future min
         var maxv = Math.log(255); //future max
@@ -166,7 +169,21 @@ function setRotateImg(){
         // calculate adjustment factor
         var scale = (maxv-minv) / (maxp-minp);
 
-        var val = Math.exp(minv + scale * ($('#rotateImg').val() - minp));
+        var val = Math.exp(minv + scale * ((maxp - $('#rotateImg').val()) - minp));
     }
     socket.emit("set rot img",Math.round(val));
 }
+
+$(function() {
+    // Try to connect
+    wsConnect();
+    // Activate pre-selected colors
+    console.log($('.color'));
+    $(".color").each(function() {
+        var color = $(this).attr("data-color");
+        $(this).css("background-color", "#" + color);
+        $(this).click(function() {
+            $('#picker').colpickSetColor(color);
+        });
+    });
+});
