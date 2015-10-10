@@ -2,30 +2,6 @@
  *  I this file, socket are managed and other misc stuff
  */
 
-// the color used to draw
-var color = {r: 255, g: 255, b: 255};
-
-// init the color picker using the library colorPicker
-var colorSetByText = false;
-$('#picker').colpick({
-    layout:'rgb',
-    color:"ffffff",
-    submit:1,
-    onChange:function(hsb,hex,rgb,el,bySetColor){
-        $(el).css('border-color','#' + hex);
-
-        // Fill the text box just if the color was not set using the text field
-        if (!colorSetByText)
-            $(el).val(hex);
-        colorSetByText = false;
-
-        color = rgb;
-    }
-}).keyup(function(){
-    colorSetByText = true;
-    $(this).colpickSetColor(this.value);
-});
-
 // Contain the img file in a 100*49 array of color(3 bytes)
 var grid;
 
@@ -59,6 +35,7 @@ function animateEllipsis(el, count) {
         }, 250 );
     }
 }
+
 function startEllipsis() {
     runEllipsis = true;
     animateEllipsis(document.getElementById('ellipsisSpan'), 0);
@@ -177,12 +154,80 @@ function setRotateImg(){
 $(function() {
     // Try to connect
     wsConnect();
-    // Activate pre-selected colors
-    $(".color").each(function() {
-        var color = $(this).attr("data-color");
-        $(this).css("background-color", "#" + color);
-        $(this).click(function() {
-            $('#picker').colpickSetColor(color);
-        });
-    });
+    // Activate the webcam
+    var video = $("#video")[0];
+    var videoStarted = false;
+     
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+     
+    function handleVideo(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        setTimeout(function() {
+            videoStarted = true;
+        }, 3000);
+    }
+
+    setInterval(function() {
+        if (!videoStarted)
+            return;
+        var canvas = $("<canvas />")[0];
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0);
+        var xRatio = 100/canvas.width;
+        var yRatio = 49/canvas.height;
+        var xOffset = 0;
+        var yOffset = 0;
+        var ratio;
+        if (xRatio > yRatio) {
+            ratio = yRatio;
+            xOffset = Math.floor((100 - canvas.width * ratio)/2);
+        } else {
+            ratio = xRatio;
+            yOffset = Math.floor((49 - canvas.height * ratio)/2);
+        }
+        var imgData = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+        var counts = new Array();
+        for (var i=0; i<100; i++) {
+            counts[i] = new Array();
+            for (var j=0; j<49; j++) {
+                counts[i][j] = 0;
+            }
+        }
+        grid = [];
+        for (var i=0; i<100; i++) {
+            grid[i] = [];
+            for (var j=0; j<49; j++) {
+                grid[i][j] = [0,0,0];
+            }
+        }
+        for (var x=0; x<canvas.width; x++) {
+            for (var y=0; y<canvas.height; y++) {
+                var offset = (y * canvas.width + x) * 4;
+                var scaledX = Math.floor(x * ratio) + xOffset;
+                var scaledY = Math.floor(y * ratio) + yOffset;
+                grid[scaledX][scaledY][0]+= imgData[offset];
+                grid[scaledX][scaledY][1]+= imgData[offset+1];
+                grid[scaledX][scaledY][2]+= imgData[offset+2];
+                counts[scaledX][scaledY]++;
+            }
+        }
+        for (var i=0; i<100; i++) {
+            for (var j=0; j<49; j++) {
+                var count = counts[i][j];
+                if (count > 0) {
+                    grid[i][j][0] = Math.floor(grid[i][j][0] / count);
+                    grid[i][j][1] = Math.floor(grid[i][j][1] / count);
+                    grid[i][j][2] = Math.floor(grid[i][j][2] / count);
+                }
+            }
+        }
+        loadFromGrid();
+        socket.emit('update img',grid);
+    }, 1000);
+
+    if (navigator.getUserMedia) {       
+        navigator.getUserMedia({video: true}, handleVideo, function(){});
+    }
 });
