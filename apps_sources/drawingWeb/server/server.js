@@ -153,7 +153,8 @@ function save2file(data){
         for(var x = 0; x<100;x++){
             for(var y = 0; y<49;y++){
                 for(var i = 0; i<3 ;i++){
-                    buf.writeUInt8(data[x][y][i],offset++);
+                    // Invert colors because they are inverted on the globe
+                    buf.writeUInt8(data[x][y][i == 0 ? 0 : i == 1 ? 2 : 1],offset++);
                 }
             
             }

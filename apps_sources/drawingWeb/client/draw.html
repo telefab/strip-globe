@@ -1,0 +1,92 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <script src='inc/js/jquery-2.1.4.min.js'></script>
+        <script src="inc/js/socket.io.min.js"></script>
+        <script src="inc/js/colpick.js"></script>
+        <script src="inc/js/FileSaver.js"></script>
+        <script src="inc/js/caman.full.min.js"></script>
+        <link rel="stylesheet" href="inc/css/colpick.css" type="text/css"/>
+        <link rel="stylesheet" href="css/main.css" type="text/css"/>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id = "waitForConnection">
+            <canvas id="can" width="100" height="49" style="border:1px solid #000"></canvas>
+            <table id="opts">
+                <tr>
+                    <td id="lColor">Couleur</td>
+                    <td class="colors">
+                        <span class="color" data-color="ffffff">&nbsp;</span>
+                        <span class="color" data-color="000000">&nbsp;</span>
+                        <span class="color" data-color="ff0000">&nbsp;</span>
+                        <span class="color" data-color="00ff00">&nbsp;</span>
+                        <span class="color" data-color="0000ff">&nbsp;</span>
+                        <span class="color" data-color="ee81fc">&nbsp;</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="text" value="ffffff" id="picker"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lBrushSize">Taille du pinceau</td>
+                    <td>
+                        <input id="brushSize" type="range" min="1" step"1" max="5" value="1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="clearWhiteboard" onclick="clearWhiteboard();">Nettoyer</button>
+                    </td>
+                </tr>
+
+                <tr><td colspan="2" style="height:2px; background-color:#000000;"></td></tr>
+                <tr>
+                    <td id="lRotationSpeed">Rotation du globe</td>
+                    <td>
+                        <input type="range" id="rotationSpeed" max="35" min="0" step="1" onchange="setRotationSpeed()"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lRotateImg">Rotation de l'image</td>
+                    <td>
+                        <input id="rotateImg" type="range" min="0" step"1" max="50" value="50" onchange="setRotateImg()"/>
+                    </td>
+                </tr>
+                <tr><td colspan="2" style="height:2px; background-color:#000000;"></td></tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="saveSphereFile" type="button" onclick="socket.emit('get raw file')">Sauvegarder</button> 
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lImgLoad">Charger</td>
+                    <td>
+                        <input type="file" id="files" name="files[]"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="lImgProcessing">Traiter l'image</td>
+                    <td>
+                        <input id="imgProcessing" type="checkbox" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="langChoose">
+            <a href="index.html">Retour</a>
+            <button id="fr" type="button" onclick="internationalize('fr')">Français</button> 
+            <button id="en" type="button" onclick="internationalize('en')">English</button> 
+        </div>
+        <p id="status"></p>
+        <script src="js/internationalization.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/loadFile.js"></script>
+        <script src="js/whiteboard.js"></script>
+    </body>
+</html>

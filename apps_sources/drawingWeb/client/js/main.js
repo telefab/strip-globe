@@ -131,18 +131,7 @@ function wsConnect(){
 
     // receive a binary Array and transform it to array to finally save it with the library FileSaver
     socket.on('get raw file',function(rawFile){
-        // You can't directly use a binary Array, to use it, you have to create a DataView
-        var data = new DataView(rawFile);
-        var offset = 0;
-        var array = new Array(rawFile.byteLength);
-        while(offset < rawFile.byteLength)
-        {
-            //An array isn't a binary array, so, we have to transform uint8 to char 
-            array[offset] = String.fromCharCode(data.getUint8(offset));
-            offset++;
-        } 
-
-        saveAs(new Blob(array),"sphere.colors");
+        saveAs(new Blob([rawFile]),"sphere.colors");
     });
 }
 

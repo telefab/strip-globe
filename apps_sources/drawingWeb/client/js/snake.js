@@ -1,5 +1,5 @@
 /*
- *  I this file, socket are managed and other misc stuff
+ *  Simple snake game
  */
 
 // Contain the img file in a 100*49 array of color(3 bytes)
@@ -154,84 +154,136 @@ function setRotateImg(){
 $(function() {
     // Try to connect
     wsConnect();
-    // Activate the webcam
-    var video = $("#video")[0];
-    var videoStarted = false;
-     
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-     
-    function handleVideo(stream) {
-        video.src = window.URL.createObjectURL(stream);
-        setTimeout(function() {
-            videoStarted = true;
-        }, 3000);
-    }
+
+    // Configuration
+    var width = 100;
+    var height = 49;
+    var snakeControls = [
+        {"ArrowLeft": [-1, 0], "ArrowRight": [1, 0], "ArrowUp": [0, -1], "ArrowDown": [0, 1]},
+        {"q": [-1, 0], "d": [1, 0], "z": [0, -1], "s": [0, 1]}
+    ];
+    var snakeColor = [
+        [255, 0, 0],
+        [0, 0, 255]
+    ];
+    var appleColor = [0, 255, 0];
+    var backgroundColor = [0, 0, 0];
+
+    // Current state
+    var snakeActive;
+    var snakeLocation;
+    var appleLocation;
+    var snakeDirection;
+    var gameOver;
 
     // Do not rotate
     socket.emit("set rot img",255);
 
-    setInterval(function() {
-        if (!videoStarted)
-            return;
-        var canvas = $("<canvas />")[0];
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(video, 0, 0);
-        var xRatio = 100/canvas.width;
-        var yRatio = 49/canvas.height;
-        var xOffset = parseInt($("#rotationOffset").val());
-        var yOffset = 0;
-        var ratio;
-        if (xRatio > yRatio) {
-            ratio = yRatio;
-            xOffset+= Math.floor((100 - canvas.width * ratio)/2);
-        } else {
-            ratio = xRatio;
-            yOffset = Math.floor((49 - canvas.height * ratio)/2);
+    // Reset function
+    function resetGame() {
+        snakeActive = [
+            true,
+            false
+        ];
+        snakeLocation = [
+            [[0, Math.floor(height/2)]],
+            [[Math.floor(width/2), Math.floor(height/2)]]
+        ];
+        snakeDirection = [[1,0], [1,0]];
+        gameOver = false;
+        clearScreen(backgroundColor);
+        launchApple();
+    }
+    $("#restart").click(resetGame);
+    resetGame();
+
+    // Set game over mode
+    function setGameOver(loser) {
+        gameOver = true;
+        clearScreen(snakeColor[loser]);
+    }
+
+    // Find a free new location for an apple
+    function launchApple() {
+        var newLocation = null;
+        while (newLocation === null) {
+            newLocation = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
+            if (checkSnakeCollision(newLocation))
+                newLocation = null;
         }
-        var imgData = ctx.getImageData(0,0,canvas.width,canvas.height).data;
-        var counts = new Array();
-        for (var i=0; i<100; i++) {
-            counts[i] = new Array();
-            for (var j=0; j<49; j++) {
-                counts[i][j] = 0;
+        appleLocation = newLocation;
+        socket.emit('update pixel', [appleLocation, appleColor]);
+    }
+
+    // Clear the whole screen with a given color
+    function clearScreen(color) {
+        var screen = [];
+        for (var i = 0; i < width; i++) {
+            screen[i] = [];
+            for (var j = 0; j < height; j++) {
+                screen[i][j] = color;
             }
         }
-        grid = [];
-        for (var i=0; i<100; i++) {
-            grid[i] = [];
-            for (var j=0; j<49; j++) {
-                grid[i][j] = [0,0,0];
-            }
-        }
-        for (var x=0; x<canvas.width; x++) {
-            for (var y=0; y<canvas.height; y++) {
-                var offset = (y * canvas.width + x) * 4;
-                var scaledX = (Math.floor(x * ratio) + xOffset) % 100;
-                var scaledY = Math.floor(y * ratio) + yOffset;
-                grid[scaledX][scaledY][0]+= imgData[offset];
-                grid[scaledX][scaledY][1]+= imgData[offset+1];
-                grid[scaledX][scaledY][2]+= imgData[offset+2];
-                counts[scaledX][scaledY]++;
-            }
-        }
-        for (var i=0; i<100; i++) {
-            for (var j=0; j<49; j++) {
-                var count = counts[i][j];
-                if (count > 0) {
-                    for (var color = 0; color < 3; color++) {
-                        colorValue = Math.floor(grid[i][j][color] / count);
-                        grid[i][j][color] = colorValue >= 128 ? 255 : 0;
-                    }
+        socket.emit('update img', screen);
+    }
+
+    // Check if given location is occupied by a snake
+    function checkSnakeCollision(newLocation) {
+        for (var i = 0; i < 2; i++) {
+            if (snakeActive[i]) {
+                for (var j = 0; j < snakeLocation[i].length; j++) {
+                    if (snakeLocation[i][j][0] == newLocation[0] && snakeLocation[i][j][1] == newLocation[1])
+                        return true;
                 }
             }
         }
-        loadFromGrid();
-        socket.emit('update img',grid);
-    }, 1000);
-
-    if (navigator.getUserMedia) {       
-        navigator.getUserMedia({video: true}, handleVideo, function(){});
+        return false;
     }
+
+    // Detect direction changes
+    $("#keylogger").keypress(function(event) {
+        var key = event.key;
+        for (var i = 0; i < 2; i++) {
+            var dir = snakeControls[i][key];
+            if (dir) {
+                snakeDirection[i] = dir;
+                snakeActive[i] = true;
+            }
+        }
+    });
+    $("#keylogger").focus();
+
+    // Move periodically 
+    setInterval(function() {
+        // Make sure the key logger is focused
+        $("#keylogger").focus();
+        // Do not move if game over
+        if (gameOver)
+            return;
+        // Move the snakes by one step
+        for (var i = 0; i < 2; i++) {
+            if (snakeActive[i]) {
+                var headLocation = [(snakeLocation[i][0][0] + snakeDirection[i][0] + width) % width, (snakeLocation[i][0][1] + snakeDirection[i][1] + height) % height];
+                var growing = false;
+                // Check for a collision
+                if (checkSnakeCollision(headLocation)) {
+                    setGameOver(i);
+                    return;
+                }
+                // Check for an apple
+                var growing = (headLocation[0] == appleLocation[0] && headLocation[1] == appleLocation[1]);
+                // Add the head to the snake
+                snakeLocation[i].splice(0, 0, headLocation);
+                socket.emit('update pixel', [headLocation, snakeColor[i]]);
+                if (growing) {
+                    // Draw a new apple
+                    launchApple()
+                } else {
+                    // Remove the tail
+                    var tailLocation = snakeLocation[i].pop();
+                    socket.emit('update pixel', [tailLocation, backgroundColor]);
+                }
+            }
+        }
+    }, 500);
 });

@@ -19,9 +19,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td id="lRotationOffset">Position de l'image</td>
                     <td>
-                        <input type="range" id="rotationOffset" max="100" min="0" step="1" value="0" />
+                        <button id="restart">Recommencer le jeu</button>
+                        <input type="text" id="keylogger" style="position: absolute; top: -500px;"/>
                     </td>
                 </tr>
             </table>
@@ -32,9 +32,8 @@
             <button id="en" type="button" onclick="internationalize('en')">English</button> 
         </div>
         <p id="status"></p>
-        <script src="js/webcam.js"></script>
+        <script src="js/snake.js"></script>
         <script src="js/whiteboard.js"></script>
-        <script src="js/internationalization.js"></script>
-        <video autoplay="true" id="video" style="visibility: hidden"></video>
+        <script src="js/internationalization.js"></script>  
     </body>
 </html>
