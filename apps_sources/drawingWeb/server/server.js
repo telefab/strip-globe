@@ -55,7 +55,7 @@ else{
 }
 
 loadSphereFile(filename);
-var refreshFile = setInterval(save2file,1000);
+var refreshFile = setInterval(save2file,100);
 
 
 
@@ -162,23 +162,22 @@ function save2file(data){
 
         buf.writeUInt8(rotateImg,offset++);  // (4)
         buf.writeUInt8(rotationSpeed,offset);// (5)
-    }
 
-    catch(err){
+        var wstream = fs.createWriteStream('sphere.colors');
+
+        wstream.on('error', function (err) {
+            console.log(err);
+            return;
+        });
+
+        wstream.write(buf);
+        wstream.end();
+        lock = false;
+    } catch(err) {
         console.log(err);
+        lock = false;
         // on any error, return, no fail
-        return;
     }
-    var wstream = fs.createWriteStream('sphere.colors');
-
-    wstream.on('error', function (err) {
-        console.log(err);
-        return;
-    });
-
-    wstream.write(buf);
-    wstream.end();
-    lock = false;
 }
 
 function loadSphereFile(filename){
@@ -196,22 +195,27 @@ function loadSphereFile(filename){
 // Parse the binary file and set up the all variables
 // Need in entry a buffer of the good size containing the good data
 function loadFromBuffer(data){
-    var parser = new jParser(data,{
-        columns       : 'uint8',
-        lines         : 'uint8',
-        image         : ['array',['array',["array",'uint8',3],49],100],
-        shift         : 'uint8',
-        rotationSpeed : 'uint8'
-    });
-    parser.parse('columns');
-    parser.parse('lines');
-    grid = parser.parse('image');
-    rotateImg = parser.parse('shift');
-    rotationSpeed = parser.parse('rotationSpeed');
+    try {
+        var parser = new jParser(data,{
+            columns       : 'uint8',
+            lines         : 'uint8',
+            image         : ['array',['array',["array",'uint8',3],49],100],
+            shift         : 'uint8',
+            rotationSpeed : 'uint8'
+        });
+        parser.parse('columns');
+        parser.parse('lines');
+        grid = parser.parse('image');
+        rotateImg = parser.parse('shift');
+        rotationSpeed = parser.parse('rotationSpeed');
 
-    io.emit('update img',grid);
-    io.emit('set rot img',rotateImg);
-    io.emit('set rot speed',rotationSpeed);
+        io.emit('update img',grid);
+        io.emit('set rot img',rotateImg);
+        io.emit('set rot speed',rotationSpeed);
+    } catch(err) {
+        // If the file is corrupted, start anyway
+        console.log(err);
+    }
 }
 
 

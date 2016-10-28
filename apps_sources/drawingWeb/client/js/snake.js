@@ -84,28 +84,6 @@ function wsConnect(){
         $("#rotationSpeed").val(rotSpeed);
     });
 
-    socket.on('set rot img',function(rotImg){
-        //Write the value on the slider like if it is a logaritmic slider
-        // position will be between 0 and 100
-        var minp = 0;
-        var maxp = 50;
-
-        // The result should be between 100 an 10000000
-        var minv = Math.log(1);
-        var maxv = Math.log(255);
-
-        var val;
-        if(rotImg == 0){
-            val = 0;
-        }
-        else{
-            // calculate adjustment factor
-            var scale = (maxv-minv) / (maxp-minp);
-            val = (Math.log(rotImg)-minv) / scale + minp;
-        }
-        $("#rotateImg").val(maxp-val);
-    });
-
     // receive a binary Array and transform it to array to finally save it with the library FileSaver
     socket.on('get raw file',function(rawFile){
         // You can't directly use a binary Array, to use it, you have to create a DataView
@@ -125,30 +103,6 @@ function wsConnect(){
 
 function setRotationSpeed(){
     socket.emit("set rot speed",$("#rotationSpeed").val());
-}
-
-// send to the server the rotation speed of the image
-// the val is calculated to follow a logarithmic law
-function setRotateImg(){
-    if($('#rotateImg').val() == 50)
-        var val = 0;
-
-    else
-    {
-        //thks Stack Overflow
-        // the slide will be between 0 and 49 (50 -> 0)
-        var minp = 0;   // actual min
-        var maxp = 50;  // actual max
-
-        var minv = Math.log(1);   //future min
-        var maxv = Math.log(255); //future max
-
-        // calculate adjustment factor
-        var scale = (maxv-minv) / (maxp-minp);
-
-        var val = Math.exp(minv + scale * ((maxp - $('#rotateImg').val()) - minp));
-    }
-    socket.emit("set rot img",Math.round(val));
 }
 
 $(function() {
@@ -177,7 +131,7 @@ $(function() {
     var gameOver;
 
     // Do not rotate
-    socket.emit("set rot img",255);
+    socket.emit("set rot img", 0);
 
     // Reset function
     function resetGame() {
@@ -186,8 +140,8 @@ $(function() {
             false
         ];
         snakeLocation = [
-            [[0, Math.floor(height/2)]],
-            [[Math.floor(width/2), Math.floor(height/2)]]
+            [[2, Math.floor(height/2)], [1, Math.floor(height/2)], [0, Math.floor(height/2)]],
+            [[Math.floor(width/2)+2, Math.floor(height/2)], [Math.floor(width/2)+1, Math.floor(height/2)], [Math.floor(width/2), Math.floor(height/2)]]
         ];
         snakeDirection = [[1,0], [1,0]];
         gameOver = false;
@@ -246,7 +200,10 @@ $(function() {
         for (var i = 0; i < 2; i++) {
             var dir = snakeControls[i][key];
             if (dir) {
-                snakeDirection[i] = dir;
+                // Do not accept turning around (immediate failure)
+                if (dir[0] != -snakeDirection[i][0] || dir[1] != -snakeDirection[i][1]) {
+                    snakeDirection[i] = dir;
+                }
                 snakeActive[i] = true;
             }
         }
@@ -285,5 +242,5 @@ $(function() {
                 }
             }
         }
-    }, 500);
+    }, 100);
 });

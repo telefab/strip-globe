@@ -108,25 +108,7 @@ function wsConnect(){
     });
 
     socket.on('set rot img',function(rotImg){
-        //Write the value on the slider like if it is a logaritmic slider
-        // position will be between 0 and 100
-        var minp = 0;
-        var maxp = 50;
-
-        // The result should be between 100 an 10000000
-        var minv = Math.log(1);
-        var maxv = Math.log(255);
-
-        var val;
-        if(rotImg == 0){
-            val = 0;
-        }
-        else{
-            // calculate adjustment factor
-            var scale = (maxv-minv) / (maxp-minp);
-            val = (Math.log(rotImg)-minv) / scale + minp;
-        }
-        $("#rotateImg").val(maxp-val);
+        $("#rotateImg").val(rotImg);
     });
 
     // receive a binary Array and transform it to array to finally save it with the library FileSaver
@@ -142,25 +124,8 @@ function setRotationSpeed(){
 // send to the server the rotation speed of the image
 // the val is calculated to follow a logarithmic law
 function setRotateImg(){
-    if($('#rotateImg').val() == 50)
-        var val = 0;
-
-    else
-    {
-        //thks Stack Overflow
-        // the slide will be between 0 and 49 (50 -> 0)
-        var minp = 0;   // actual min
-        var maxp = 50;  // actual max
-
-        var minv = Math.log(1);   //future min
-        var maxv = Math.log(255); //future max
-
-        // calculate adjustment factor
-        var scale = (maxv-minv) / (maxp-minp);
-
-        var val = Math.exp(minv + scale * ((maxp - $('#rotateImg').val()) - minp));
-    }
-    socket.emit("set rot img",Math.round(val));
+    var value = $('#rotateImg').val();
+    socket.emit("set rot img", value);
 }
 
 $(function() {

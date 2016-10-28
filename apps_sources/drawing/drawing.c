@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
     while(1)
     {
         // Pause during the step time
-        for(tt = 0; tt < 10000000;tt++);
+        for(tt = 0; tt < 1000000;tt++);
 
         // read configuration in the file
         image_file = fopen("sphere.colors", "rb");
@@ -87,8 +87,8 @@ int main(int argc, char *argv[])
         write(fs, &speed, 1);
 
         // Rotate the image
-        if (globe.image_shift > 0 && (double)(clock() - timeLastImgShift) / CLOCKS_PER_SEC > (double)(globe.image_shift) / 100.){
-            rot = (rot + 1) % 100;
+        if ((double)(clock() - timeLastImgShift) / CLOCKS_PER_SEC > 2. / 10.){
+            rot = (rot + globe.image_shift) % 100;
             timeLastImgShift = clock();
         }
 
